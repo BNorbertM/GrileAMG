@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            font-size: 20px;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+        .options li {
+            margin: 10px 0;
+        }
+        .options button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .options button:hover {
+            background-color: #0056b3;
+        }
+        .score {
+            font-size: 24px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .result {
+            margin: 10px 0;
+        }
+        .retry-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .retry-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+<div class="quiz-container">
+    <div id="quiz">
+        <div id="question" class="question"></div>
+        <ul id="options" class="options"></ul>
+    </div>
+    <div id="score" class="score"></div>
+    <div id="results" class="results"></div>
+    <button id="retry" class="retry-button" style="display: none;">Reîncercați întrebările greșite</button>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const quiz = [
+{
+  question: "1. Respirația este favorizată de:",
+  options: ["a. poziţia şezândă şi ortostatică", "b. poziţia şezândă şi clinostatică", "c. poziția de decubit lateral şi ventral."],
+  answer: "a. poziţia şezândă şi ortostatică"
+},
+{
+  question: "2. Incontinența urinară reprezintă:",
+  options: ["a. incapacitatea vezicii urinare de a-şi goli conținutul", "b. eliminare inconştientă, involuntară de urină", "c. micțiuni involuntare nocturne."],
+  answer: "b. eliminare inconştientă, involuntară de urină"
+},
+{
+  question: "3. Frecvența respirației la persoana adultă este:",
+  options: ["a. 14-16 respirații/min", "b. 16-18 respirații/min", "c. 18-22 respirații/min."],
+  answer: "b. 16-18 respirații/min"
+},
+{
+  question: "4. Starea de hipotermie este determinată de:",
+  options: ["a. pierderea excesivă de căldură", "b. creşterea arderilor din organism", "c. intensificarea metabolismului."],
+  answer: "a. pierderea excesivă de căldură"
+},
+{
+  question: "5. Afazia este manifestarea comunicării ineficiente care priveşte:",
+  options: ["a. scăderea masei musculare", "b. tulburarea sensibilității pielii", "c. incapacitatea de a pronunța cuvintele."],
+  answer: "c. incapacitatea de a pronunța cuvintele"
+},
+{
+  question: "6. Gastrostoma este o metodă de alimentație:",
+  options: ["a. activă", "b. pasivă", "c. artificială."],
+  answer: "c. artificială"
+},
+{
+  question: "7. Temperatura de sterilizare la Poupinel (căldură uscată) este de:",
+  options: ["a. 140-150 grade C", "b. 180-200 grade C", "c. 160-180 grade C."],
+  answer: "c. 160-180 grade C"
+},
+{
+  question: "8. Alcoolul sanitar se foloseşte la dezinfecția:",
+  options: ["a. plăgii", "b. tegumentelor", "c. mucoaselor."],
+  answer: "b. tegumentelor"
+},
+{
+  question: "9. Pensa Péan este o pensă:",
+  options: ["a. anatomică", "b. chirurgicală", "c. hemostatică."],
+  answer: "c. hemostatică"
+},
+{
+  question: "10. Examenul macroscopic de urină determină:",
+  options: ["a. volumul urinar.", "b. sedimentul urinar.", "c. reacția pH."],
+  answer: "a. volumul urinar."
+},
+{
+  question: "11. Nitroglicerina se administrează:",
+  options: ["a. pe cale rectală", "b. sublingual", "c. prin instilație oculară."],
+  answer: "b. sublingual"
+},
+{
+  question: "12. Doza maximă are asupra organismului efect:",
+  options: ["a. terapeutic", "b. toxic", "c. letal."],
+  answer: "a. terapeutic"
+},
+{
+  question: "13. Absorbția medicamentelor administrate intravenos se face în:",
+  options: ["a. 5-10 min", "b. 10-20 min", "c. instantaneu."],
+  answer: "c. instantaneu"
+},
+{
+  question: "14. Scopul Precauțiunilor Universale este:",
+  options: ["a. combaterea IN (infecţii nosocomiale)", "b. prevenirea IN cu cale de transmitere sanguină la locul de muncă", "c. tratarea IN în secția de boli infecţioase."],
+  answer: "b. prevenirea IN cu cale de transmitere sanguină la locul de muncă"
+},
+{
+  question: "15. Caz de expunere profesională reprezintă:",
+  options: ["a. orice persoană din sistemul sanitar care a suferit o expunere accidentală", "b. orice persoană din sistemul sanitar care vine în contact cu pacientul", "c. orice persoană din sistemul sanitar care se îmbolnăveşte."],
+  answer: "a. orice persoană din sistemul sanitar care a suferit o expunere accidentală"
+},
+{
+  question: "16. Următoarele cauze pot determina dispneea laringiană:",
+  options: ["a. edemul pulmonar acut", "b. edemul Quincke", "c. pleurezia masivă."],
+  answer: "b. edemul Quincke"
+},
+{
+  question: "17. Care dintre următoarele explorări nu fac parte din diagnosticul BPOC:",
+  options: ["a. electrocardiogramă", "b. gazometria", "c. ecografia Doppler."],
+  answer: "c. ecografia Doppler"
+},
+{
+  question: "18. Semnele de insuficienţă respiratorie acută nu cuprind:",
+  options: ["a. transpirații, polipnee", "b. dureri abdominale", "c. tiraj intercostal"],
+  answer: "b. dureri abdominale"
+},
+{
+  question: "19. Care dintre următoarele afirmații nu este adevărată despre simptomatologia astmului?",
+  options: ["a. wheezing", "b. tuse", "c. se declanşează dimineața."],
+  answer: "c. se declanşează dimineața."
+},
+{
+  question: "20. Care dintre următoarele afirmaţii legat de examenul fizic nu este adevărată la pacientul cu astm?",
+  options: ["a. îngroşarea mucoasei nazale", "b. inflamația sinusurilor", "c. raluri subcrepitante."],
+  answer: "c. raluri subcrepitante."
+},
+{
+  question: "21. Insuficienţa mitrală se caracterizează prin trecerea anormală, în sistolă, a sângelui:",
+  options: ["a. din ventriculul stâng în atriul stâng", "b. din ventriculul drept în atriul drept", "c. din atriul stâng în ventriculul stâng."],
+  answer: "a. din ventriculul stâng în atriul stâng"
+},
+{
+  question: "22. Tratamentul din infarctului de miocard acut (IMA) vizează:",
+  options: ["a. repaus la pat, combaterea durerii, tratament anticoagulant", "b. blocanți ai canalelor de calciu, regim igieno-dietetic", "c. trombolitice, antialgice."],
+  answer: "a. repaus la pat, combaterea durerii, tratament anticoagulant"
+},
+{
+  question: "23. Durerea din angina pectorală se caracterizează prin:",
+  options: ["a. durează peste 30 de minute", "b. iradiază în membrul superior stâng", "c. nu cedează la nitroglicerină."],
+  answer: "b. iradiază în membrul superior stâng"
+},
+{
+  question: "24. Angiocardiografia reprezintă:",
+  options: ["a. examinarea interiorului vaselor şi a cavităților inimii cu ajutorul substanței de contrast", "b. evidenţierea arterelor periferice cu ajutorul substanțelor de contrast", "c. evidenţierea arterei aorte cu ajutorul substanței de contrast."],
+  answer: "a. examinarea interiorului vaselor şi a cavităților inimii cu ajutorul substanței de contrast"
+},
+{
+  question: "25. Durerea din angina pectorală are caracter:",
+  options: ["a. constrictiv", "b. difuz", "c. sufocant."],
+  answer: "a. constrictiv"
+},
+{
+  question: "26. Investigațiile imagistice pentru diagnosticul ulcerului gastric sunt:",
+  options: ["a. endoscopia digestivă inferioară", "b. endoscopia digestivă superioară", "c. endoscopia digestivă medie."],
+  answer: "b. endoscopia digestivă superioară"
+},
+{
+  question: "27. Complicațiile ulcerului gastric sunt:",
+  options: ["a. HDS (hemoragie digestivă superioară)", "b. HDI (hemoragie digestivă inferioară)", "c. malignizare."],
+  answer: "b. HDI (hemoragie digestivă inferioară)"
+},
+{
+  "question": "28. Tabloul clinic al pancreatitei acute poate cuprinde:",
+  "options": ["a. rectoragii", "b. HDS (hemoragie digestivă superioară)", "c. hiperglicemie."],
+  "answer": "c. hiperglicemie."
+},
+{
+  "question": "29. Următoarele afirmaţii sunt false:",
+  "options": ["a. endoscopia digestivă superioară (EDS) este explorarea cea mai importantă în diagnosticul ulcerului", "b. EDS permite prelevarea de biopsii antrale și fundice pentru identificarea Helicobacter pylori indiferent de localizarea ulcerului", "c. EDS permite prelevarea de biopsii duodenale pentru excluderea unui cancer, ținând cont că acesta poate mima ulcerul."],
+  "answer": "c. EDS permite prelevarea de biopsii duodenale pentru excluderea unui cancer, ținând cont că acesta poate mima ulcerul."
+},
+{
+  "question": "30. Irigografia se execută după umplerea colonului cu substanță radioopacă introdusă pe cale:",
+  "options": ["a. ascendentă", "b. descendentă", "c. parenterală."],
+  "answer": "a. ascendentă"
+},
+{
+  "question": "31. Etiologia IRC cuprinde:",
+  "options": ["a. consumul ocazional de AINS", "b. HTA", "c. diabet gestațional."],
+  "answer": "b. HTA"
+},
+{
+  "question": "32. Care din următorii factori sunt etiologici pentru IRC:",
+  "options": ["a. diabetul zaharat", "b. diabetul insipid", "c. diabetul gestațional."],
+  "answer": "a. diabetul zaharat"
+},
+{
+  "question": "33. Diagnosticul de certitudine al unei infecții urinare se face pe baza:",
+  "options": ["a. sumarului de urină", "b. urografiei", "c. uroculturii."],
+  "answer": "c. uroculturii"
+},
+{
+  "question": "34. Varicocelul este:",
+  "options": ["a. o dilatație venoasă a arterelor spermatice", "b. o dilatație arterială a venelor spermatice", "c. o dilatație venoasă a venelor spermatice."],
+  "answer": "c. o dilatație venoasă a venelor spermatice"
+},
+{
+  "question": "35. Adenomul de prostată este:",
+  "options": ["a. o tumoră benignă", "b. o tumora malignă", "c. un chist."],
+  "answer": "a. o tumoră benignă"
+},
+{
+  "question": "36. Colica renală:",
+  "options": ["a. este o durere lombară paroxistică", "b. se însoțește întotdeauna de febră, frison", "c. durerea iradiază către mezogastru."],
+  "answer": "a. este o durere lombară paroxistică"
+},
+{
+  "question": "37. Complicațiile postoperatorii ale aparatului renal sunt:",
+  "options": ["a. ischemia renală", "b. retenția acută de urină", "c. insuficiența renală cronică."],
+  "answer": "b. retenția acută de urină"
+},
+{
+  "question": "38. Cauzele HDS sunt:",
+  "options": ["a. enterocolita acută", "b. diverticulita colonică", "c. varicele esofagiene."],
+  "answer": "c. varicele esofagiene"
+},
+{
+  "question": "39. Herniile:",
+  "options": ["a. se tratează medicamentos", "b. apar după intervenții chirurgicale anterioare", "c. se pot complica cu strangulare şi necroză."],
+  "answer": "c. se pot complica cu strangulare şi necroză"
+},
+{
+  "question": "40. Semn al şocului hipovolemic este:",
+  "options": ["a. tahicardia", "b. HTA", "c. bradipneea."],
+  "answer": "a. tahicardia"
+},
+{
+  "question": "41. Sindrom secretoriu nazal cu alterarea calitativă a secreției:",
+  "options": ["a. rinoree", "b. hidroree", "c. polipnee."],
+  "answer": "a. rinoree"
+},
+{
+  "question": "42. Disfagia sugerează o afecțiune a:",
+  "options": ["a. nasului", "b. faringelui", "c. laringelui."],
+  "answer": "b. faringelui"
+},
+{
+  "question": "43. Keratita:",
+  "options": ["a. este inflamația corneei", "b. este inflamația carotidei", "c. poate fi transmisă prin lentilele de contact."],
+  "answer": "a. este inflamația corneei"
+},
+{
+  "question": "44. Orjeletul:",
+  "options": ["a. se tratează obligatoriu cu antibiotic", "b. este inflamația glandei sebacee a pleoapei", "c. este inflamația glandei sudoripare a pleoapei."],
+  "answer": "b. este inflamația glandei sebacee a pleoapei"
+},
+{
+  "question": "45. Anemia prin deficit de fier este:",
+  "options": ["a. macrocitară și hipocromă", "b. microcitară şi hipocromă", "c. normocitară și normocromă."],
+  "answer": "b. microcitară şi hipocromă"
+},
+{
+  "question": "46. Leucemiile acute sunt date de:",
+  "options": ["a. proliferarea malignă a celulelor hematopoietice", "b. proliferarea malignă a celulelor mature", "c. proliferarea malignă a plasmocitelor."],
+  "answer": "a. proliferarea malignă a celulelor hematopoietice"
+},
+{
+  "question": "47. Mobilitatea anormală din entorsele grave se poate investiga prin:",
+  "options": ["a. artroscopie", "b. IRM (imagistică prin rezonanță magnetică)", "c. radiografie în poziție „menținută\"."],
+  "answer": "a. artroscopie"
+},
+{
+  "question": "48. Care este sensul devierii genunchiului în cazul deformației „genu valgum\"?:",
+  "options": ["a. spre interior", "b. spre exterior", "c. spre înapoi."],
+  "answer": "a. spre interior"
+},
+{
+  "question": "49. Pentru tratamentul unei tumori primitive osoase maligne ar fi de preferat:",
+  "options": ["a. tratamentul conservator", "b. tratamentul chirurgical", "c. combinarea celor două metode."],
+  "answer": "b. tratamentul chirurgical"
+},
+{
+  "question": "50. Prezența lichidului în exces într-o articulație, se numeşte:",
+  "options": ["a. hemartroză", "b. hidratroză", "c. bursită."],
+  "answer": "b. hidratroză"
+},
+{
+  "question": "51. Următoarele intervenții sunt delegate, cu excepția:",
+  "options": ["a. asigurarea alimentației", "b. pregătirea preoperatorie", "c. aplicarea aparatului gipsat."],
+  "answer": "a. asigurarea alimentației"
+},
+{
+  "question": "52. Eritemul din reumatismul articular acut se manifestă ca o erupție cutanată:",
+  "options": ["a. localizată pe trunchi, față sau coapse", "b. dureroasă", "c. pruriginoasă"],
+  "answer": "a. localizată pe trunchi, față sau coapse"
+},
+{
+  "question": "53. Osteofitele sunt:",
+  "options": ["a. oasele mici", "b. mici excrescențe osoase", "c. inflamaţii osoase."],
+  "answer": "b. mici excrescențe osoase"
+},
+{
+  "question": "54. Piodermita este o infecție cutanată de etiologie:",
+  "options": ["a. virală", "b. bacteriană", "c. fungică."],
+  "answer": "b. bacteriană"
+},
+{
+  "question": "55. Boală caracterizată prin prezența unor vezicule cu lichid incolor, dispuse de-a lungul traiectului nervilor intercostali, la care se asociază durere şi prurit, se numeşte:",
+  "options": ["a. nevocarcinom", "b. tricofiţie", "c. zona Zoster."],
+  "answer": "c. zona Zoster"
+},
+{
+  "question": "56. Virusul gripal se caracterizează prin:",
+  "options": ["a. marea variabilitate antigenică", "b. rezistența crescută", "c. secreție de factori toxici celulari."],
+  "answer": "a. marea variabilitate antigenică"
+},
+{
+  "question": "57. Pentru stabilirea diagnosticului de infecție HIV, se recoltează o probă de sânge pentru determinarea Ac anti HIV1/2:",
+  "options": ["a. la 2 săptămâni de la contactul presupus infectant", "b. la 2 luni de la contactul presupus infectant", "c. la cel puțin 3 luni de la contactul presupus infectant."],
+  "answer": "c. la cel puțin 3 luni de la contactul presupus infectant"
+},
+{
+  "question": "58. Din punct de vedere clinic gripa se caracterizează prin:",
+  "options": ["a. debut brusc cu febră, frisoane, mialgii, dureri în globii oculari", "b. debut brusc cu febră, frisoane, senzație de greață, vărsături", "c. debut brusc cu febră, cefalee, astenie, tuse cu expectorație."],
+  "answer": "a. debut brusc cu febră, frisoane, mialgii, dureri în globii oculari"
+},
+{
+  "question": "59. Pneumoniile bacteriene sunt determinate cel mai frecvent de:",
+  "options": ["a. stafilococ", "b. pneumococ", "c. E. Coli."],
+  "answer": "b. pneumococ"
+},
+{
+  "question": "60. Dozările urinare hormonale se fac din:",
+  "options": ["a. urina recent eliminată", "b. urina din 24 de ore", "c. urina de dimineață."],
+  "answer": "b. urina din 24 de ore"
+},
+{
+  "question": "61. Care din următoarele afirmații sunt specifice diabetului zaharat de tip 2:",
+  "options": ["a. pacienții sunt în general slabi", "b. antidiabeticele orale sunt ineficiente", "c. se întâlneşte în special la pacienți peste 40 de ani."],
+  "answer": "c. se întâlneşte în special la pacienți peste 40 de ani"
+},
+{
+  "question": "62. Un pacient prezintă o glicemie à jeun de 136 mg/dl; pe lângă aceasta, ce condiție din următoarele de mai jos mai trebuie să îndeplinească pacientul pentru a fi diagnosticat cu diabet zaharat?:",
+  "options": ["a. încă o glicemie à jeun < 126 mg/dl", "b. o glicemie≥ 200 mg/dl la 2 ore după administrarea a 75 g glucoză", "c. încă o glicemie à jeun > 110 mg/dl."],
+  "answer": "b. o glicemie≥ 200 mg/dl la 2 ore după administrarea a 75 g glucoză"
+},
+{
+  "question": "63. Care din următoarele afirmații sunt specifice diabetului zaharat de tip 1:",
+  "options": ["a. antidiabeticele orale sunt eficiente", "b. se întâlnește in special la pacienți peste 40 de ani", "c. este o boală autoimună."],
+  "answer": "c. este o boală autoimună"
+},
+{
+  "question": "64. În gută alimentele ce trebuie evitate în special sunt:",
+  "options": ["a. fructele şi legumele proaspete", "b. carnea de animal tânăr şi alimentele de origine marină", "c. alimentele bogate în lipide."],
+  "answer": "b. carnea de animal tânăr şi alimentele de origine marină"
+},
+{
+  "question": "65. Triada diagnostică în cancerul de col uterin (diagnostic de certitudine) este reprezentată de:",
+  "options": ["a. test Papanicolau-colposcopie biopsie", "b. ecografie-colposcopie - IRM (rezonanță magnetică)", "c. ecografie-CT (computer tomograf) -IRM (rezonanţă magnetică)."],
+  "answer": "a. test Papanicolau-colposcopie biopsie"
+},
+{
+  "question": "66. Profilaxia si educația sanitară reprezintă:",
+  "options": ["a. intervenții delegate", "b. intervenții autonome", "c. obiective de nursing."],
+  "answer": "b. intervenții autonome"
+},
+{
+  "question": "67. Frecvenţa normală a pulsului fetal la termen este cuprinsă între:",
+  "options": ["a. 120-160 b/min", "b. 160-180 b/min", "c. 90-110 b/min."],
+  "answer": "a. 120-160 b/min"
+},
+{
+  "question": "68. Perioada a II-a a naşterii este reprezentată de:",
+  "options": ["a. dilatația colului uterin", "b. expulsie", "c. delivrenţă."],
+  "answer": "b. expulsie"
+},
+{
+  "question": "69. Placenta inserată pe segmentul inferior al uterului se numeşte:",
+  "options": ["a. placenta accreta", "b. placenta hemoragică", "c. placenta praevia."],
+  "answer": "c. placenta praevia"
+},
+{
+  "question": "70. Tratamentul profilactic al asfixiei la nou-născut vizează:",
+  "options": ["a. prevenirea prematuritătii", "b. reanimare promptă la naştere", "c. administrare de oxigen parturientei."],
+  "answer": "b. reanimare promptă la naştere"
+},
+{
+  "question": "71. Vaccinul BCG se administrează:",
+  "options": ["a. subcutanat", "b. intradermic", "c. intramuscular."],
+  "answer": "b. intradermic"
+},
+{
+  "question": "72. Factorul determinant al malnutriției sugarului este:",
+  "options": ["a. prematuritatea", "b. dismaturitatea", "c. greşeli alimentare cantitative şi calitative."],
+  "answer": "c. greşeli alimentare cantitative şi calitative"
+},
+{
+  "question": "73. Care dintre următoarele afirmaţii în legătură cu bronşiolită acută este incorectă?",
+  "options": ["a. etiologia este virală", "b. este caracteristică sugarului mic", "c. antibioticele reprezintă tratamentul de prima alegere."],
+  "answer": "c. antibioticele reprezintă tratamentul de prima alegere."
+},
+{
+  "question": "74. Temperatura normală a nou-născutului şi sugarului are valori cuprinse între:",
+  "options": ["a. 36,2-37,8 grade C", "b. 35,6-36,6 grade C", "c. 38,2-39,1 grade C."],
+  "answer": "a. 36,2-37,8 grade C"
+},
+{
+  "question": "75. Baia generală a nou-născutului se efectuează:",
+  "options": ["a. imediat după naştere", "b. după căderea cordonului ombilical si cicatrizare", "c. la o lună după naştere."],
+  "answer": "b. după căderea cordonului ombilical si cicatrizare"
+},
+{
+  "question": "76. Tabloul clinic al bolii Parkinson mai poate cuprinde:",
+  "options": ["a. tulburări cognitive", "b. hemiplegie", "c. dureri difuze."],
+  "answer": "a. tulburări cognitive"
+},
+{
+  "question": "77. Poziția „cocoş de puşcă\" este specifică pentru:",
+  "options": ["a. tetanos", "b. meningită", "c. boala Parkinson."],
+  "answer": "b. meningită"
+},
+{
+  "question": "78. Afazia reprezintă:",
+  "options": ["a. pierderea capacitații de concentrare, diminuarea atenției", "b. imposibilitatea de a exprima sau de a înțelege cuvintele", "c. alterarea timbrului vocii care devine bitonală sau surdă."],
+  "answer": "b. imposibilitatea de a exprima sau de a înțelege cuvintele"
+},
+{
+  "question": "79. Opistotonusul este specific pentru:",
+  "options": ["a. tetanos", "b. meningită", "c. tetanie"],
+  "answer": "a. tetanos"
+},
+{
+  "question": "80. Tratamentul crizelor de epilepsie alcoolică presupune:",
+  "options": ["a. antiedematoase cerebrale", "b. antiemetice şi antispastice", "c. hipotensive şi antitermice."],
+  "answer": "a. antiedematoase cerebrale"
+},
+{
+  "question": "81. Sunt simptome ale dependenței narcotice cu opioide:",
+  "options": ["a. midriaza, tahicardia", "b. constipație, pupilele miotice", "c. hipertensiune arterială."],
+  "answer": "b. constipație, pupilele miotice"
+},
+{
+  "question": "82. Tulburarea echilibrului acido-bazic prin exces de baze se numeşte:",
+  "options": ["a. acidoză", "b. alcaloză", "c. anorexie."],
+  "answer": "b. alcaloză"
+},
+{
+  "question": "83. Bolnavii operați cu anestezie locală vor fi aşezați în pat în:",
+  "options": ["a. decubit dorsal fără pernă", "b. decubit dorsal cu pernă", "c. poziție Trendelenburg."],
+  "answer": "b. decubit dorsal cu pernă"
+},
+{
+  "question": "84. Conduita de urgență în ocluzia intestinală este:",
+  "options": ["a. administrarea de purgative", "b. introducerea unei sonde de aspirație nazo-gastrică", "c. administrarea de opiacee pentru combaterea durerii."],
+  "answer": "b. introducerea unei sonde de aspirație nazo-gastrică"
+},
+{
+  "question": "85. Astmul cardiac este:",
+  "options": ["a. dispnee de efort", "b. dispnee paroxistică", "c. dispnee de repaus."],
+  "answer": "a. dispnee de efort"
+},
+{
+  "question": "86. Colica biliară se percepe ca:",
+  "options": ["a. o durere puternică în epigastru.", "b. o durere puternică în hipogastru.", "c. o durere puternică în hipocondrul drept."],
+  "answer": "c. o durere puternică în hipocondrul drept."
+},
+{
+  "question": "87. Asistenţa în stările terminale vizează următoarele obiective, cu excepția:",
+  "options": ["a. menţinerea vârstnicului în ambianța obişnuită", "b. instituţionalizarea pentru o mai bună supraveghere medicală", "c. înlăturarea suferinţelor fizice controlul durerii."],
+  "answer": "b. instituţionalizarea pentru o mai bună supraveghere medicală"
+},
+{
+  "question": "88. Cea mai utilă investigaţie diagnostică pentru cancerul bronhopulmonar este:",
+  "options": ["a. radiografia pulmonară", "b. CT", "c. bronhoscopia."],
+  "answer": "c. bronhoscopia."
+},
+{
+  "question": "89. Îngrijirea comunitară este orientată:",
+  "options": ["a. spre individ", "b. spre familie sau un grup social", "c. ambele."],
+  "answer": "c. ambele."
+},
+{
+  "question": "90. Hemostaza definitivă se realizează cu:",
+  "options": ["a. aplicarea garoului", "b. pansament compresiv", "c. ligatură chirurgicală."],
+  "answer": "c. ligatură chirurgicală."
+}
+
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let results = [];
+        let wrongAnswers = [];
+
+        function showQuestion() {
+            const questionElement = document.getElementById('question');
+            const optionsElement = document.getElementById('options');
+            const scoreElement = document.getElementById('score');
+            const resultsElement = document.getElementById('results');
+            const retryButton = document.getElementById('retry');
+
+            if (currentQuestionIndex < quiz.length) {
+                const currentQuestion = quiz[currentQuestionIndex];
+                questionElement.textContent = currentQuestion.question;
+                optionsElement.innerHTML = '';
+                currentQuestion.options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.textContent = option;
+                    button.onclick = () => checkAnswer(option);
+                    const li = document.createElement('li');
+                    li.appendChild(button);
+                    optionsElement.appendChild(li);
+                });
+                scoreElement.textContent = '';
+                resultsElement.textContent = '';
+                retryButton.style.display = 'none';
+            } else {
+                questionElement.textContent = '';
+                optionsElement.innerHTML = '';
+                scoreElement.textContent = `Scorul tău final este: ${score}/${quiz.length}`;
+                showResults();
+            }
+        }
+
+        function checkAnswer(answer) {
+            const currentQuestion = quiz[currentQuestionIndex];
+            const result = {
+                question: currentQuestion.question,
+                correctAnswer: currentQuestion.answer,
+                yourAnswer: answer,
+                options: currentQuestion.options
+            };
+            results.push(result);
+
+            if (answer === currentQuestion.answer) {
+                score++;
+            } else {
+                wrongAnswers.push(result);
+            }
+
+            currentQuestionIndex++;
+            showQuestion();
+        }
+
+        function showResults() {
+            const resultsElement = document.getElementById('results');
+            const retryButton = document.getElementById('retry');
+            resultsElement.innerHTML = '<h3>Rezultate:</h3>';
+
+            if (wrongAnswers.length > 0) {
+                resultsElement.innerHTML += '<h4>Răspunsuri greșite:</h4>';
+                wrongAnswers.forEach(result => {
+                    const resultElement = document.createElement('div');
+                    resultElement.classList.add('result');
+                    resultElement.innerHTML = `
+                        <p>${result.question}</p>
+                        <p>Opțiuni:</p>
+                        <ul>${result.options.map(option => `<li>${option}</li>`).join('')}</ul>
+                        <p>Răspunsul tău: ${result.yourAnswer}</p>
+                        <p>Răspunsul corect: ${result.correctAnswer}</p>
+                        <hr>
+                    `;
+                    resultsElement.appendChild(resultElement);
+                });
+            }
+
+            const correctAnswers = results.filter(r => wrongAnswers.indexOf(r) === -1);
+            if (correctAnswers.length > 0) {
+                resultsElement.innerHTML += '<h4>Răspunsuri corecte:</h4>';
+                correctAnswers.forEach(result => {
+                    const resultElement = document.createElement('div');
+                    resultElement.classList.add('result');
+                    resultElement.innerHTML = `
+                        <p>${result.question}</p>
+                        <p>Opțiuni:</p>
+                        <ul>${result.options.map(option => `<li>${option}</li>`).join('')}</ul>
+                        <p>Răspunsul tău: ${result.yourAnswer}</p>
+                        <p>Răspunsul corect: ${result.correctAnswer}</p>
+                        <hr>
+                    `;
+                    resultsElement.appendChild(resultElement);
+                });
+            }
+
+            if (wrongAnswers.length > 0) {
+                retryButton.style.display = 'block';
+                retryButton.onclick = retryWrongAnswers;
+            }
+        }
+
+        function retryWrongAnswers() {
+            quiz.length = 0;
+            wrongAnswers.forEach(wa => quiz.push({
+                question: wa.question,
+                options: wa.options,
+                answer: wa.correctAnswer
+            }));
+            currentQuestionIndex = 0;
+            score = 0;
+            results = [];
+            wrongAnswers = [];
+            showQuestion();
+        }
+
+        showQuestion();
+    });
+</script>
+</body>
+</html>
