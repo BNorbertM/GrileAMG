@@ -83,455 +83,331 @@
     document.addEventListener('DOMContentLoaded', (event) => {
         const quiz = [
 {
-  question: "1. Care din următoarele semne clinice pot fi sugestive pentru tuberculoza pulmonară secundară:",
-  options: ["a. tuse frecventă, vomică mucopurulentă, dispnee paroxistică cu wheezing, ortopnee", "b. frison urmat de febră mare, junghi toracic intens, tuse productivă cu spută ruginie, stridor", "c. tuse seacă sau productivă, hemoptizii, subfebrilitate vesperală, scădere ponderală"],
-  answer: "c. tuse seacă sau productivă, hemoptizii, subfebrilitate vesperală, scădere ponderală"
+question: "1. Tabloul clinic in coma diabetică cuprinde:",
+options: ["a. midriază, respirația Kussmaul, inapetența", "b. transpirații, tremurături, foame", "c. astenie, piele uscată, respirația Cheyne-Stokes"],
+answer: "a. midriază, respirația Kussmaul, inapetența"
 },
 {
-  question: "2. Următoarele afirmații referitoare la BPCO sunt adevărate:",
-  options: ["a. se manifestă prin dispnee progresivă, scăderea toleranței la efort, cianoză", "b. spirometria indică creșterea VEMS și a volumului rezidual", "c. ambele afirmații sunt adevărate"],
-  answer: "a. se manifestă prin dispnee progresivă, scăderea toleranței la efort, cianoză"
+question: "2. A doua fază a agoniei se caracterizează prin:",
+options: ["a. logoree, extremități reci", "b. tahipnee, hipersecreție bronşică", "c. privire fixă, extremități cianotice, puls slab"],
+answer: "c. privire fixă, extremități cianotice, puls slab"
 },
 {
-  question: "3. Criza de astm bronșic se manifestă prin:",
-  options: ["a. polipnee severă inspiratorie, cianoză, tuse cu expectorație hemoptoică", "b. dispnee progresivă, constricție toracică, wheezing, bronhoree mucopurulentă", "c. dispnee paroxistică de tip bradipnee inspiratorie, wheezing"],
-  answer: "c. dispnee paroxistică de tip bradipnee inspiratorie, wheezing"
+question: "3. Administrarea preparatelor de fier se poate face:",
+options: ["a. per os, prin tub de sucțiune", "b. asociate cu acid folic, intravenos", "c. asociate cu acid ascorbic, subcutanat"],
+answer: "a. per os, prin tub de sucțiune"
 },
 {
-  question: "4. Spirometria în emfizemul pulmonar indică:",
-  options: ["a. VR crescut, VEMS scăzut", "b. VR și VEMS scăzute", "c. CV și VEMS crescute"],
-  answer: "a. VR crescut, VEMS scăzut"
+question: "4. Coma acidozică se caracterizează prin:",
+options: ["a. tegumente reci, uscate", "b. creştere în greutate", "c. poliurie"],
+answer: "c. poliurie"
 },
 {
-  question: "5. Sputa în accesul de astm bronșic este:",
-  options: ["a. aerată, roz, abundentă", "b. mucopurulentă, fetidă", "c. alb-sidefie, vâscoasă, perlată"],
-  answer: "c. alb-sidefie, vâscoasă, perlată"
+question: "5. În subnutriție apare:",
+options: ["a. poliurie, polakiurie", "b. poliurie, polifagie", "c. poliurie, polidipsie"],
+answer: "a. poliurie, polakiurie"
 },
 {
-  question: "6. Eritemul nodos este o manifestare caracteristică a:",
-  options: ["a. cancerului bronhopulmonar", "b. pneumoniei pneumococice", "c. tuberculozei primare"],
-  answer: "b. pneumoniei pneumococice"
+question: "6. Regimul alimentar în afecțiunile hematologice cuprinde:",
+options: ["a. alimente fierbinți, zarzavaturi", "b. condimente, carne fiartă, ardei gras", "c. fructe, ficat, pătrunjel verde"],
+answer: "c. fructe, ficat, pătrunjel verde"
 },
 {
-  question: "7. Manifestările clinice într-o pleurezie sunt:",
-  options: ["a. durere toracică, tuse cu expectorație hemoptoică, cianoza extremităților", "b. junghi toracic, dispnee, tuse seacă", "c. junghi toracic, bronhoree purulentă, bradipnee"],
-  answer: "b. junghi toracic, dispnee, tuse seacă"
+question: "7. În hiperfuncția tiroidiană:",
+options: ["a. creşte iodemia şi ioduria", "b. scade iodemia şi ioduria", "c. scade colesterolul"],
+answer: "a. creşte iodemia şi ioduria"
 },
 {
-  question: "8. Hemoglobina glicozilată (HbA1c):",
-  options: ["a. indică o valoare medie a glicemiei în ultimele 2-3 luni", "b. se utilizează pentru diagnosticul hiperuricemiilor", "c. este un marker tumoral"],
-  answer: "a. indică o valoare medie a glicemiei în ultimele 2-3 luni"
+question: "8. Recoltarea scaunului pentru examen parazitologic se face:",
+options: ["a. după 3 zile de regim fără carne şi crudități", "b. în recipiente speciale, pe mediu de cultură", "c. din 3 locuri diferite ale scaunului eliminat spontan"],
+answer: "c. din 3 locuri diferite ale scaunului eliminat spontan"
 },
 {
-  question: "9. Sindromul metabolic reprezintă o asociere de factori de risc pentru:",
-  options: ["a. obezitate și dislipidemie", "b. ateroscleroză și diabet zaharat insulinodependent", "c. diabet zaharat de tip II și cardiopatie ischemică"],
-  answer: "c. diabet zaharat de tip II și cardiopatie ischemică"
+question: "9. Accidentele transfuziei pot fi:",
+options: ["a. edem pulmonar acut", "b. insuficienţă renală", "c. stop cardiac"],
+answer: "b. insuficienţă renală"
 },
 {
-  question: "10. Un indice de masă corporală de 24 % semnifică:",
-  options: ["a. o greutate normală", "b. obezitate", "c. denutriție"],
-  answer: "a. o greutate normală"
+question: "10. Hiperpigmentarea tegumentelor este caracteristică:",
+options: ["a. sindromului Cushing", "b. bolii Addison", "c. bolii Basedow"],
+answer: "b. bolii Addison"
 },
 {
-  question: "11. Coma diabetică cu cetoacidoză se manifestă prin:",
-  options: ["a. semne de deshidratare, hipotermie, dispnee Kussmaul, halenă acetonemică", "b. tegumente umede, dispnee Cheyne –Stokes, hipertonie musculară", "c. midriază, halenă amoniacală, transpirații profuze, ROT accentuate"],
-  answer: "a. semne de deshidratare, hipotermie, dispnee Kussmaul, halenă acetonemică"
+question: "11. Hipertiroidismul poate prezenta:",
+options: ["a. exoftalmie", "b. stabilitate emoțională", "c. hipotensiune arterială"],
+answer: "a. exoftalmie"
 },
 {
-  question: "12. Scăderea sintezei de albumine de către hepatocite în ciroza hepatică determină:",
-  options: ["a. manifestări hemoragipare, steluțe vasculare, eritem palmar", "b. edeme la nivelul membrelor inferioare, ascită", "c. apariția varicelor esofagiene și a circulației colaterale abdominale"],
-  answer: "b. edeme la nivelul membrelor inferioare, ascită"
+question: "12. Regimul alimentar al unei paciente internate pentru colecistită acută litiazică include:",
+options: ["a. cantități mici de ceai, din oră în oră", "b. lapte, smântână iaurt", "c. ambele variante sunt corecte"],
+answer: "a. cantități mici de ceai, din oră în oră"
 },
 {
-  question: "13. Senzația de foame dureroasă apărută noaptea, calmată la ingestia de alimente sau apă, este caracteristică în:",
-  options: ["a. colecistita acută litiazică", "b. ulcer duodenal", "c. cancer gastric"],
-  answer: "b. ulcer duodenal"
+question: "13. Pregătirea preoperatorie a unui pacient cu tumoră de colon presupune:",
+options: ["a. golirea intestinului prin dietă hidrică şi elismă înaltă", "b. lavaj gastric cu 1000ml SF", "c. regim alimentar cu alimente bogate în celuloză"],
+answer: "a. golirea intestinului prin dietă hidrică şi elismă înaltă"
 },
 {
-  question: "14. Gustul amar, limba saburală, halena fetidă, în special dimineața, pot apărea în:",
-  options: ["a. boala de reflux gastroesofagian", "b. colecistita cronică", "c. hernia hiatală"],
-  answer: "b. colecistita cronică"
+question: "14. Pregătirea pentru efectuarea radioscopiei gastrointestinale presupune:",
+options: ["a. clismă evacuatorie în seara precedentă investigației", "b. lavaj gastric cu 1000ml SF în dimineața investigației", "c. dietă hidrică în dimineața investigației"],
+answer: "a. clismă evacuatorie în seara precedentă investigației"
 },
 {
-  question: "15. Hematemeza și melena pot apărea în următoarele situații:",
-  options: ["a. cancerul colorectal", "b. varicele esofagiene", "c. ambele"],
-  answer: "b. varicele esofagiene"
+question: "15. Pacienții cu stenoză pilorică prezintă:",
+options: ["a. vărsături cu conținut alimentar vechi", "b. vărsături în jet precedate de greață", "c. vărsături bilioase"],
+answer: "a. vărsături cu conținut alimentar vechi"
 },
 {
-  question: "16. Durerea epigastrică cu iradiere în bară este caracteristică:",
-  options: ["a. ulcerului gastric perforat", "b. pancreatitei acute", "c. hemoragiei digestive superioare"],
-  answer: "b. pancreatitei acute"
+question: "16. Colangiografia este examenul radiologic ce permite explorarea:",
+options: ["a. căilor biliare", "b. căilor urinare", "c. pancreasului"],
+answer: "a. căilor biliare"
 },
 {
-  question: "17. Durerea în ulcerul gastric survine:",
-  options: ["a. precoce după mese (30-60 minute)", "b. tardiv după mese (2-4 ore)", "c. când stomacul este gol (foame dureroasă)"],
-  answer: "a. precoce după mese (30-60 minute)"
+question: "17. Problemele de dependență ale pacienților cu hemofilie includ:",
+options: ["a. dispneca", "b. tulburările de mobilitate", "c. dificultatea de a se alimenta"],
+answer: "b. tulburările de mobilitate"
 },
 {
-  question: "18. În ciroza hepatică se indică restricție proteică pe perioade scurte în cazul apariției:",
-  options: ["a. ascitei", "b. icterului", "c. encefalopatiei hepatice"],
-  answer: "c. encefalopatiei hepatice"
+question: "18. Pacienților cu arteriopatie obliterantă a membrelor pelvine li se recomandă repausul la pat:",
+options: ["a. cu picioarele atârnând la marginea patului", "b. cu membrele inferioare mai sus decât restul corpului", "c. în decubit lateral stâng"],
+answer: "a. cu picioarele atârnând la marginea patului"
 },
 {
-  question: "19. Sunt manifestări de tireotoxicoză următoarele:",
-  options: ["a. tranzit intestinal încetinit, creștere în greutate, polipnee, hipersecreție lacrimală, bradipsihie", "b. hiposecreție sudorală și lacrimală, exoftalmie, bradicardie, HTA, somnolență", "c. polipnee, tranzit intestinal accelerat, scădere în greutate, tahicardie, nervozitate, tahilalie"],
-  answer: "c. polipnee, tranzit intestinal accelerat, scădere în greutate, tahicardie, nervozitate, tahilalie"
+question: "19. Pacienților cu boală varicoasă li se recomandă repaus la pat:",
+options: ["a. cu picioarele atârnând la marginea patului", "b. cu membrele inferioare mai sus decât restul corpului", "c. în decubit lateral stâng"],
+answer: "b. cu membrele inferioare mai sus decât restul corpului"
 },
 {
-  question: "20. Scăderea sintezei și eliberării de vasopresină (ADH) din hipotalamus determină:",
-  options: ["a. poliurie și polidipsie", "b. hiperexcitabilitate neuromusculară", "c. hiperpigmentarea tegumentelor"],
-  answer: "a. poliurie și polidipsie"
+question: "20. Regimul alimentar al pacientului cu insuficienţă cardiacă este:",
+options: ["a. hiposodat, hipolipidic, hipocaloric", "b. hiposodat, hiperlipidic, hipocaloric", "c. hiposodat, hipolipidic, hipercaloric"],
+answer: "a. hiposodat, hipolipidic, hipocaloric"
 },
 {
-  question: "21. Nanismul mixedematos:",
-  options: ["a. este cauzat de deficitul hormonului de creștere în copilărie", "b. este asociat cu retard mintal", "c. proporțiile între segmentele corpului sunt normale"],
-  answer: "b. este asociat cu retard mintal"
+question: "21. Îngrijirea pacientului cu IMA cuprinde:",
+options: ["a. combaterea durerii", "b. mobilizarea precoce a pacientului în prevenirea complicațiilor", "c. combaterea anxietății"],
+answer: "a. combaterea durerii"
 },
 {
-  question: "22. Boala Cushing:",
-  options: ["a. se manifestă prin obezitate, atrofie musculară, HTA", "b. este cauzată de hipersecreția de hormoni tiroidieni", "c. este urmarea insuficienței hipofizare"],
-  answer: "a. se manifestă prin obezitate, atrofie musculară, HTA"
+question: "22. Examenul radiologic venos se numeşte:",
+options: ["a. flebografie", "b. fleboscopie", "c. osciloscopie"],
+answer: "a. flebografie"
 },
 {
-  question: "23. La examenul obiectiv într-o tromboflebită profundă la nivelul membrelor inferioare se constată:",
-  options: ["a. durere intensă la nivelul gambei, colabarea venelor superficiale, claudicație intermitentă", "b. prezența unui cordon venos dur, dureros, violaceu, tegumente locale palide, reci", "c. edem alb, nedureros, temperatură locală crescută, febră, tahicardie"],
-  answer: "c. edem alb, nedureros, temperatură locală crescută, febră, tahicardie"
+question: "23. Îngrijirea pacienților cu artroză presupune:",
+options: ["a. măsuri de păstrare a mobilității articulare", "b. imobilizarea articulațiilor dureroase în scop analgetic", "c. reducerea greutății corporale printr-un regim hiposodat, hipercaloric"],
+answer: "a. măsuri de păstrare a mobilității articulare"
 },
 {
-  question: "24. Conduita de urgență în tamponada cardiacă constă în:",
-  options: ["a. administrarea parenterală de doze mari de diuretice și tonice cardiace", "b. pericardiocenteză", "c. electroconversie"],
-  answer: "b. pericardiocenteză"
+question: "24. Manifestările clinice ale spondilitei includ:",
+options: ["a. imobilitatea coloanei vertebrale", "b. dureri la nivelul articulațiilor mari", "c. febra"],
+answer: "a. imobilitatea coloanei vertebrale"
 },
 {
-  question: "25. Următoarea afirmație referitoare la cardita reumatismală este adevărată:",
-  options: ["a. apare în cursul unei infecții acute cu streptococ beta-hemolitic", "b. este întotdeauna precedată sau însoțită de afectare articulară", "c. poate cauza apariția în timp a unor valvulopatii cronice"],
-  answer: "c. poate cauza apariția în timp a unor valvulopatii cronice"
+question: "25. Manifestările clinice ale poliartritei reumatoide includ:",
+options: ["a. dureri la nivelul articulațiilor mari", "b. dureri la nivelul articulațiilor mici de la maini şi picioare", "c. febra"],
+answer: "b. dureri la nivelul articulațiilor mici de la maini şi picioare"
 },
 {
-  question: "26. Adoptarea poziției de clinostatism cu membrele inferioare ridicate este contraindicată în:",
-  options: ["a. hipotensiune arterială", "b. tromboflebita acută", "c. arteriopatie obliterantă acută"],
-  answer: "c. arteriopatie obliterantă acută"
+question: "26. La un pacient cu poliartrită reumatoidă pentru determinarea factorului reumatoid se recoltează:",
+options: ["a. sânge venos", "b. lichid cefalorahidian", "c. ambele variante sunt corecte"],
+answer: "a. sânge venos"
 },
 {
-  question: "27. Durerea din criza de angină pectorală:",
-  options: ["a. are o durată de peste 30 minute", "b. iradiază totdeauna de-a lungul umărului și brațului stâng", "c. cedează la administrarea de nitroglicerină"],
-  answer: "c. cedează la administrarea de nitroglicerină"
+question: "27. Artroscopia reprezintă:",
+options: ["a. examenul endoscopic articular", "b. examenul radiologic articular", "c. examenul histopatologic articular"],
+answer: "a. examenul endoscopic articular"
 },
 {
-  question: "28. Lipsa pulsului la arterele periferice de la nivelul membrelor inferioare poate fi cauzată de:",
-  options: ["a. tromboza venoasă profundă", "b. insuficiența cardiacă dreaptă", "c. sindromul de ischemie periferică acută"],
-  answer: "c. sindromul de ischemie periferică acută"
+question: "28. Imobilizarea unei fracturi de humerus se face cu:",
+options: ["a. corset ghipsat", "b. aparat toracobrahial", "c. aparat pelvipedios"],
+answer: "b. aparat toracobrahial"
 },
 {
-  question: "29. Următoarele afirmații referitoare la conduita în edemul pulmonar acut cardiogen sunt false, cu excepția:",
-  options: ["a. pacientul se poziționează în decubit dorsal, cu membrele inferioare ridicate", "b. pacientul se poziționează în poziția laterală de siguranță", "c. pacientul se poziționează în poziție semișezând cu picioarele atârnând"],
-  answer: "c. pacientul se poziționează în poziție semișezând cu picioarele atârnând"
+question: "29. La copii reducerea ortopedică a unei fracturi se face cu:",
+options: ["a. anestezie generală inhalatorie sau i.v.", "b. anestezie rahidiană", "c. anestezie locală"],
+answer: "a. anestezie generală inhalatorie sau i.v."
 },
 {
-  question: "30. Tulburările de ritm cu o frecvență atrială de 400-600/min, neregulată, definesc:",
-  options: ["a. flutterul atrial", "b. tahicardia paroxistică atrială", "c. fibrilația atrială"],
-  answer: "c. fibrilația atrială"
+question: "30. La un pacient cu fractură necomplicată a radiusului stâng, durata imobilizării în aparat ghipsat va fi:",
+options: ["a. 10-15 zile", "b. 15-20 zile", "c. 30-90 zile"],
+answer: "c. 30-90 zile"
 },
 {
-  question: "31. Claudicația intermitentă este:",
-  options: ["a. durere violentă apărută în mușchii gambelor în sindromul de ischemie periferică acută", "b. durere în talpă sau gambă cauzată de tromboflebita profundă", "c. durere la nivelul gambelor apărută la efort din cauza obliterării progresive a arterelor."],
-  answer: "c. durere la nivelul gambelor apărută la efort din cauza obliterării progresive a arterelor"
+question: "31. Pacientul cu deshidratare severă prezintă:",
+options: ["a. hTA", "b. tahicardie", "c. ambele variante sunt corecte"],
+answer: "c. ambele variante sunt corecte"
 },
 {
-  question: "32. În insuficiența cardiacă pot apărea următoarele manifestări:",
-  options: ["a. tuse seacă nocturnă, oboseală", "b. hepatomegalie cu icter, edeme gambiere", "c. toate cele de mai sus."],
-  answer: "c. toate cele de mai sus"
+question: "32. Perfuzarea în exces peste necesarul de lichide al organismului poate duce la apariția:",
+options: ["a. edemului pulmonar acut", "b. emboliei pulmonare", "c. emfizemului pulmonar"],
+answer: "a. edemului pulmonar acut"
 },
 {
-  question: "33. Glomerulonefritele acute :",
-  options: ["a. sunt afecțiuni inflamatorii ale glomerulilor, calicelor și bazinetului renal", "b. sunt frecvent cauzate de infecția cu streptococ beta hemolitic de grup A", "c. ambele afirmații sunt adevărate."],
-  answer: "b. sunt frecvent cauzate de infecția cu streptococ beta hemolitic de grup A"
+question: "33. Perfuzarea pacientului se poate face prin:",
+options: ["a. abord venos periferic", "b. abord venos central", "c. ambele variante sunt corecte"],
+answer: "c. ambele variante sunt corecte"
 },
 {
-  question: "34. Sindromul nefrotic se caracterizează prin:",
-  options: ["a. edeme, proteinurie", "b. oligurie, disurie", "c. polakiurie, poliurie, piurie."],
-  answer: "a. edeme, proteinurie"
+question: "34. La pacienții cu deshidratare severă se recomandă administrarea pe cale i.v. de:",
+options: ["a. ser fiziologic", "b. plasmă", "c. sânge integral"],
+answer: "a. ser fiziologic"
 },
 {
-  question: "35. În insuficiența renală rata filtrării glomerulare este:",
-  options: ["a. scăzută", "b. crescută", "c. scăzută sau crescută în funcție de stadiul insuficienței renale."],
-  answer: "a. scăzută"
+question: "35. Locul de elecție al puncției osoase în vederea stabilirii structurii şi compoziției măduvei osoase hematogene este:",
+options: ["a. sternul", "b. treimea medie a humerusului", "c. ambele variante sunt corecte"],
+answer: "a. sternul"
 },
 {
-  question: "36. Pielonefrita acută:",
-  options: ["a. este o infecție la nivelul interstițiului renal și sistemului pielocaliceal", "b. determină proteinurie de peste 3,5mg/24 ore", "c. este o boală imunologică ce determină leziuni ale glomerulilor renali."],
-  answer: "a. este o infecție la nivelul interstițiului renal și sistemului pielocaliceal"
+question: "36. Puncția articulară este indicată la pacienții cu:",
+options: ["a. artrite cronice purulente", "b. spondilită anchilopoetică", "c. reumatism articular degenerativ"],
+answer: "a. artrite cronice purulente"
 },
 {
-  question: "37. Manifestările clinice în leucemiile acute cuprind:",
-  options: ["a. gingivoragii, epistaxis, purpură", "b. tromboze și embolii arteriale", "c. adenopatie generalizată, cu ganglioni mobili, dureroși."],
-  answer: "a. gingivoragii, epistaxis, purpură"
+question: "37. După puncția articulară se recomandă imobilizarea articulației în poziție fiziologică timp de:",
+options: ["a. 6-12 ore", "b. 2-3 zile", "c. 7-14 zile"],
+answer: "b. 2-3 zile"
 },
 {
-  question: "38. Boala Hodgkin",
-  options: ["a. este o boală degenerativă a sistemului nervos", "b. se manifestă prin multiple adenopatii superficiale și profunde", "c. este cauzată de insuficiența medulară."],
-  answer: "b. se manifestă prin multiple adenopatii superficiale și profunde"
+question: "38. Puncția pericardică este măsura de urgență indicată la pacienții cu:",
+options: ["a. pericardită virală", "b. tamponada", "c. insuficiența cardiacă stângă"],
+answer: "b. tamponada"
 },
 {
-  question: "39. Icterul și splenomegalia pot apărea în următoarele afecțiuni hematologice:",
-  options: ["a. anemie feriprivă", "b. leucemie acută", "c. talasemie ."],
-  answer: "c. talasemie"
+question: "39. Puncția pleurală permite:",
+options: ["a. evacuarea lichidului din cavitatea pleurală", "b. stabilirea etiologiei lichidului pleural prin efectuarea de examene biochimice şi citologice", "c. ambele variante sunt corecte"],
+answer: "c. ambele variante sunt corecte"
 },
 {
-  question: "40. Spondilita anchilozantă:",
-  options: ["a. afectează coloana vertebrală", "b. este o artroză", "c. afectează simetric articulațiile periferice."],
-  answer: "a. afectează coloana vertebrală"
+question: "40. Puncția pleurală se numeşte:",
+options: ["a. paracenteză", "b. toracocenteză", "c. pericardocenteză"],
+answer: "b. toracocenteză"
 },
 {
-  question: "41. Care dintre următoarele afirmații privind poliartrita reumatoidă este falsă:",
-  options: ["a. afectarea articulară este simetrică", "b. în evoluție coloana vertebrală devine rigidă, cu aspect de „băț de bambus”", "c. există și manifestări extraarticulare."],
-  answer: "b. în evoluție coloana vertebrală devine rigidă, cu aspect de „băț de bambus”"
+question: "41. Paracenteza abdominală se efectuează:",
+options: ["a. în hipocondrul drept", "b. în hipocondrul stâng", "c. ambele variante sunt incorecte"],
+answer: "c. ambele variante sunt incorecte"
 },
 {
-  question: "42. Placenta praevia reprezintă:",
-  options: ["a. placenta care se întinde in profunzime până la miometru", "b. placenta localizată la nivelul orificiului cervical extern", "c. o tumora benigna a placentei."],
-  answer: "b. placenta localizată la nivelul orificiului cervical extern"
+question: "42. Accidentele injecției i.m. la nivelul regiunii fesiere pot include:",
+options: ["a. paralizie prin lezarea nervului sciatic", "b. paralizie prin lezarea nervului popliteu extern", "c. paralizie prin lezarea nervului median"],
+answer: "a. paralizie prin lezarea nervului sciatic"
 },
 {
-  question: "43. Nașterea prematură înseamnă:",
-  options: ["a. expulzia fătului între 28-37 săptămâni de sarcină", "b. expulzia fătului între 37-40 săptămâni de sarcină", "c. nașterea înainte de 28 de săptămâni de sarcină."],
-  answer: "a. expulzia fătului între 28-37 săptămâni de sarcină"
+question: "43. Pentru a evita apariția emboliei prin introducere accidentală a unei substanțe uleioase într-un vas de sânge, se recomandă:",
+options: ["a. administrarea substanțelor uleioase prin injecție subcutanată", "b. aspirarea obligatorie înainte de injectarea i.m. a medicamentelor", "c. ambele variante sunt corecte"],
+answer: "b. aspirarea obligatorie înainte de injectarea i.m. a medicamentelor"
 },
 {
-  question: "44. Eclampsia se manifestă prin:",
-  options: ["a. convulsii localizate apoi generalizate", "b. grețuri și vărsături severe în trimestrul III de sarcină", "c. metroragii severe cu sânge închis la culoare."],
-  answer: "a. convulsii localizate apoi generalizate"
+question: "44. În contextul actualizării procesului de îngrijire activitatea a.m. se modifică astfel:",
+options: ["a. de la îngrijirile centrate pe sarcini se trece la îngrijirile centrate pe pacient", "b. de la îngrijirile centrate pe pacient se trece la îngrijirile centrate pe sarcini", "c. ambele variante sunt incorecte"],
+answer: "a. de la îngrijirile centrate pe sarcini se trece la îngrijirile centrate pe pacient"
 },
 {
-  question: "45. În iminența de avort se indică administrarea de:",
-  options: ["a. progesteron", "b. estrogeni", "c. ocitocice."],
-  answer: "a. progesteron"
+question: "45. Coma se defineşte prin:",
+options: ["a. abolirea stării de conştientă", "b. hipotensiune arterială severă", "c. tahicardie"],
+answer: "a. abolirea stării de conştientă"
 },
 {
-  question: "46. Boala inflamatorie pelvină reprezintă:",
-  options: ["a. infecția cervicală cu germeni gram pozitivi", "b. infecții vulvo-vaginale cu germeni cu transmitere sexuală", "c. infecție la nivelul tractului genital superior."],
-  answer: "c. infecție la nivelul tractului genital superior"
+question: "46. Prevenirea escarelor se face prin:",
+options: ["a. masajul punctelor de sprijin", "b. întinderea lenjeriei de pat pentru a evita apariția cutelor", "c. ambele variante sunt corecte"],
+answer: "c. ambele variante sunt corecte"
 },
 {
-  question: "47. Următoarele afirmații privind fibromiomul uterin sunt adevărate:",
-  options: ["a. suferă o creștere în dimensiuni și număr după instalarea menopauzei", "b. se poate manifesta clinic prin meno-metroragii, polakiurie, disurie", "c. se manifestă clinic prin leucoree abundentă mucopurulentă și amenoree secundară."],
-  answer: "b. se poate manifesta clinic prin meno-metroragii, polakiurie, disurie"
+question: "47. Menoragiile sunt:",
+options: ["a. hemoragiile menstruale prelungite", "b. sângerările vaginale ce apar între menstruații", "c. hemoragiile menstruale cu flux redus, timp de 1-2 zile"],
+answer: "a. hemoragiile menstruale prelungite"
 },
 {
-  question: "48. Care dintre următoarele reprezintă un timp al nașterii:",
-  options: ["a. dilatația", "b. delivrența", "c. angajarea."],
-  answer: "c. angajarea"
+question: "48. Vomica reprezintă:",
+options: ["a. vărsătura explozivă în jet, neprecedată de greață", "b. eliminarea unor colecții de puroi din căile respiratorii", "c. vărsătura cu conținut alimentar în cantitate mare"],
+answer: "b. eliminarea unor colecții de puroi din căile respiratorii"
 },
 {
-  question: "49. Vulvo-vaginita candidozică se manifestă clinic prin:",
-  options: ["a. leucoree gălbuie urât mirositoare, arsuri și prurit vulvar", "b. leucoree purulentă, uneori sanghinolentă, dispareunie, disurie", "c. prurit vulvar, arsuri locale, leucoree albicioasă, disurie."],
-  answer: "c. prurit vulvar, arsuri locale, leucoree albicioasă, disurie"
+question: "49. Vărsăturile de aspect verzui însoțite de gust amar și cefalee apar în:",
+options: ["a. colecistita acută", "b. peritonita acută localizată", "c. ambele variante sunt corecte"],
+answer: "a. colecistita acută"
 },
-{
-  question: "50. Sunt semne de declanșare a travaliului:",
-  options: ["a. contracțiile uterine dureroase neregulate", "b. colul șters și dilatat", "c. ruperea membranelor."],
-  answer: "b. colul șters și dilatat"
-},
-{
-  question: "51. Cloasma gravidică reprezintă:",
-  options: ["a. pigmentarea liniei albe abdominale în sarcină", "b. hiperpigmentarea areolelor mamare în sarcină", "c. hiperpigmentarea frunții și pomeților la gravidă."],
-  answer: "c. hiperpigmentarea frunții și pomeților la gravidă"
-},
-{
-  question: "52. Mola hidatiformă este:",
-  options: ["a. o tumoră malignă a uterului", "b. o sarcină în care nivația se face în afara endometrului", "c. o tumoră benignă specifică sarcinii."],
-  answer: "c. o tumoră benignă specifică sarcinii"
-},
-{
-  question: "53. Administrarea de glucocorticoizi în iminența de naștere prematură are ca scop:",
-  options: ["a. prelungirea sarcinii până la o vârstă de gestație cât mai favorabilă fătului", "b. reducerea incidentei detresei respiratorii la nou-născut", "c. evitarea apariției infecțiilor severe la nou-născut."],
-  answer: "b. reducerea incidentei detresei respiratorii la nou-născut"
-},
-{
-  question: "54. Contraceptivele orale combinate pot avea următoarele efecte adverse:",
-  options: ["a. risc crescut de tromboembolii", "b. infecții urogenitale recidivante", "c. scăderea imunității."],
-  answer: "a. risc crescut de tromboembolii"
-},
-{
-  question: "55. Testul non-stress aplicat în sarcină:",
-  options: ["a. ajută la determinarea datei probabile a nașterii", "b. determină riscul de apariție a malformațiilor fetale", "c. monitorizează starea fătului în sarcinile cu risc."],
-  answer: "c. monitorizează starea fătului în sarcinile cu risc"
-},
-{
-  question: "56. Infecția cu HPV poate cauza:",
-  options: ["a. cancer endometrial", "b. cancer de col uterin", "c. ambele"],
-  answer: "b. cancer de col uterin"
-},
-{
-  question: "57. Îngrijirea unui copil cu epistaxis presupune:",
-  options: ["a. așezarea pacientului în decubit dorsal cu membrele superioare în sus", "b. introducerea unei meșe nazale fără a evacua conținutul", "c. umidificarea mucoasei nazale și îndepărtarea crustelor."],
-  answer: "c. umidificarea mucoasei nazale și îndepărtarea crustelor"
-},
-{
-  question: "58. La sugar, arsura ce cuprinde fața anterioară sau posterioară a trunchiului reprezintă:",
-  options: ["a. 18% din suprafața corporală", "b. 9% din suprafața corporală", "c. 36% din suprafața corporală."],
-  answer: "a. 18% din suprafața corporală"
-},
-{
-  question: "59. Arsura de gradul III se caracterizează prin:",
-  options: ["a. flictenă cu lichid clar", "b. eritem", "c. flictenă cu lichid hemoragic."],
-  answer: "c. flictenă cu lichid hemoragic"
-},
-{
-  question: "60. Pentru obținerea unui masaj cardiac extern eficient la sugar, reanimatorul:",
-  options: ["a. urmărește realizarea unei depresii sternale egală cu jumătatea diametrului antero-posterior al toracelui", "b. înconjoară toracele cu ambele mâini, iar cu policele încrucișat comprimă porțiunea inferioară a sternului", "c. îl așează pe un plan dur și efectuează compresie sternală cu palmele suprapuse."],
-  answer: "b. înconjoară toracele cu ambele mâini, iar cu policele încrucișat comprimă porțiunea inferioară a sternului"
-},
-{
-  question: "61. Tabloul clinic al sugarului cu insuficiență cardiacă dreaptă include:",
-  options: ["a. tahipnee intensă", "b. oligurie", "c. tuse."],
-  answer: "b. oligurie"
-},
-{
-  question: "62. Dismaturul:",
-  options: ["a. este un nou-născut cu greutate normală la naștere, după o sarcină cu durată mai mică de 37 de săptămâni", "b. este un nou-născut cu greutate mică la naștere, după o sarcină cu durată mai mică de 37 de săptămâni", "c. este un nou-născut cu greutate mică la naștere, după o sarcină cu durată de 39 de săptămâni"],
-  answer: "c. este un nou-născut cu greutate mică la naștere, după o sarcină cu durată de 39 de săptămâni"
-},
-{
-  question: "63. Vaccinarea antirujeolică:",
-  options: ["a. începe la vârsta de 3 luni", "b. începe la vârsta de 6 luni", "c. începe la vârsta de 12 luni."],
-  answer: "c. începe la vârsta de 12 luni"
-},
-{
-  question: "64. Vaccinarea antidifterică se face la vârsta de:",
-  options: ["a. 1-2 ani", "b. 3-4 ani", "c. 2-6 luni."],
-  answer: "c. 2-6 luni"
-},
-{
-  question: "65. Pentru sugar, diversificarea alimentației se poate începe la:",
-  options: ["a. 3 luni", "b. 6 luni", "c. 12 luni."],
-  answer: "b. 6 luni"
-},
-{
-  question: "66. Contraindicațiile materne tranzitorii pentru alimentația naturală include:",
-  options: ["a. boală psihică gravă", "b. cașexia", "c. infecție a sânilor."],
-  answer: "c. infecție a sânilor"
-},
-{
-  question: "67. În timpul sarcinii bătăile cordului sunt percepute în jurul vârstei de:",
-  options: ["a. 6 săptămâni", "b. 10 săptămâni", "c. 4 luni."],
-  answer: "a. 6 săptămâni"
-},
-{
-  question: "68. Fontanela anterioară se va închide în mod normal:",
-  options: ["a. între 1 – 3 luni", "b. între 9 – 18 luni", "c. între 6 – 9 luni."],
-  answer: "b. între 9 – 18 luni"
-},
-{
-  question: "69. În prima zi nou-născutul va fi alimentat:",
-  options: ["a. 5 minute la ambii sâni la interval de 3 ore", "b. 10 minute la ambii sâni la interval de 6 ore", "c. 30 minute la ambii sâni la interval de 8 ore."],
-  answer: "a. 5 minute la ambii sâni la interval de 3 ore"
-},
-{
-  question: "70. Reacțiile vaccinale locale:",
-  options: ["a. fenomene inflamatorii", "b. durează peste 72 de ore", "c. necesită tratament antibiotic."],
-  answer: "a. fenomene inflamatorii"
-},
-{
-  question: "71. Aspectul normal al lichidului cefalorahidian obținut prin puncție lombară este:",
-  options: ["a. opalescent", "b. clar ca apa", "c. serocitrin."],
-  answer: "b. clar ca apa"
-},
-{
-  question: "72. La nou-născut se consideră semn de sepsis:",
-  options: ["a. bradipnee", "b. tahipnee", "c. subfebrilitate."],
-  answer: "b. tahipnee"
-},
-{
-  question: "73. Dezvoltarea psihică a copiilor cu istoric de convulsii febrile:",
-  options: ["a. este mai lentă decât a copiilor fără astfel de istoric", "b. este mai rapidă decât a copiilor fără astfel de istoric", "c. nu este diferită de cea a copiilor fără astfel de istoric."],
-  answer: "c. nu este diferită de cea a copiilor fără astfel de istoric"
-},
-{
-  question: "74. La un copil cu acidoză diabetică se constată:",
-  options: ["a. bradipnee", "b. tahipnee", "c. polipnee."],
-  answer: "c. polipnee"
-},
-{
-  question: "75. Sugarul la 3 luni:",
-  options: ["a. umblă în “4 labe”", "b. nu își recunoaște mama", "c. își menține capul drept."],
-  answer: "c. își menține capul drept"
-},
-{
-  question: "76. Durata normală a sarcinii este de:",
-  options: ["a. 29 – 30 de săptămâni", "b. 39 – 40 de săptămâni", "c. 43 – 44 de săptămâni."],
-  answer: "b. 39 – 40 de săptămâni"
-},
-{
-  question: "77. La naștere, nou-născutul ar trebui să aibă o greutate de:",
-  options: ["a. 2800-4000g", "b. 4000-5800g", "c. 1800-2800g."],
-  answer: "a. 2800-4000g"
-},
-{
-  question: "78. Pregătirea sugarului pentru alimentarea artificială presupune:",
-  options: ["a. scoaterea scutecelor", "b. aceeași poziție ca pentru alăptatul la sân", "c. culcarea pe spate în pătuț."],
-  answer: "b. aceeași poziție ca pentru alăptatul la sân"
-},
-{
-  question: "79. La nou-născuții ce provin din mame purtătoare Ag HBs, vaccinarea antihepatitică se va face:",
-  options: ["a. la 3 luni de la naștere", "b. în primele 12 ore de viață", "c. la 6 luni de la naștere."],
-  answer: "b. în primele 12 ore de viață"
-},
-{
-  question: "80. Rahitismul carențial reprezintă:",
-  options: ["a. carența de vitamina B6", "b. carența de vitamina D", "c. carența de vitamina C."],
-  answer: "b. carența de vitamina D"
-},
-{
-  question: "81. Macrosom:",
-  options: ["a. este un nou-născut cu o greutate la naștere între 3500-4000g", "b. este un nou-născut cu o greutate la naștere între 4000-4500g", "c. este un nou-născut cu o greutate la naștere între 4500-5000g."],
-  answer: "b. este un nou-născut cu o greutate la naștere între 4000-4500g"
-},
-{
-  question: "82. Cauză a convulsiilor neonatale:",
-  options: ["a. hipercalcemia", "b. hemoragia intracraniană", "c. hiperglicemia."],
-  answer: "b. hemoragia intracraniană"
-},
-{
-  question: "83. Investigație paraclinică în caz de icter al nou-născutului:",
-  options: ["a. uree sanguină", "b. creatinină sanguină", "c. test Coombs direct și indirect."],
-  answer: "c. test Coombs direct și indirect"
-},
-{
-  question: "84. În criza de astm bronșic, aerosolii se administrează copilului așezat în poziție:",
-  options: ["a. decubit dorsal", "b. decubit lateral stâng", "c. semișezând."],
-  answer: "c. semișezând"
-},
-{
-  question: "85. În cazul unei suspiciuni de infecție bacteriană la sugar, se recomandă:",
-  options: ["a. uroculturi", "b. hemoculturi", "c. ambele variante."],
-  answer: "c. ambele variante"
-},
-{
-  question: "86. La nou-născut cu pielonefrită acută, tratamentul cu antibiotic se administrează:",
-  options: ["a. oral", "b. intravenos", "c. intramuscular."],
-  answer: "b. intravenos"
-},
-{
-  question: "87. Etapa neo-natală în dezvoltarea unui copil se referă la perioada:",
-  options: ["a. 0 – 28 zile", "b. 29 zile – 12 luni", "c. 1 – 2 ani."],
-  answer: "a. 0 – 28 zile"
-},
-{
-  question: "88. Fontanela posterioară:",
-  options: ["a. este în mod obligatoriu deschisă la naștere și se închide după 3 – 4 luni", "b. poate fi închisă la naștere sau, dacă există, se va închide în primele 3 – 4 săptămâni", "c. rămâne deschisă în primul an."],
-  answer: "b. poate fi închisă la naștere sau, dacă există, se va închide în primele 3 – 4 săptămâni"
-},
-{
-  question: "89. Principala sursă de energie pentru organism o reprezintă:",
-  options: ["a. proteinele", "b. lipidele", "c. glucidele."],
-  answer: "c. glucidele"
-},
-{
-  question: "90. Spălătura gastrică la copil se face cu o sondă a cărei lungime va fi egală cu distanța:",
-  options: ["a. cavitate bucală – apendice xifoid", "b. pavilionul urechii – manubriul sternal", "c. cavitate bucală – ombilic."],
-  answer: "c. cavitate bucală – ombilic."
-}
+{ question: "50. Pentru calcularea nevoilor calorice ale organismului, se iau în considerare:", options: ["a. vârsta pacientului", "b. activitatea desfășurată de individ", "c. ambele variante sunt corecte"], answer: "c. ambele variante sunt corecte" },
+
+{ question: "51. Nevoile de glucide ale organismului /kg corp/24 ore în condiții normale sunt:", options: ["a. 4-6 grame", "b. 1-1.5 grame", "c. 0.5-1 gram"], answer: "a. 4-6 grame" },
+
+{ question: "52. Hemoptizia reprezintă:", options: ["a. sputa cu sânge", "b. vărsătura cu sânge", "c. urina cu sânge"], answer: "a. sputa cu sânge" },
+
+{ question: "53. Conceptul holistic al îngrijirilor de sănătate:", options: ["a. apreciază individul ca tot unitar, unic şi irepetabil", "b. consideră suferința fizică urmare a unor nevoi spirituale nesatisfăcute", "c. recomandă ca tratament de primă intenție medicamente naturiste"], answer: "a. apreciază individul ca tot unitar, unic şi irepetabil" },
+
+{ question: "54. Dreptul la confidențialitate al pacientului înseamnă:", options: ["a. informațiile primite de la pacient nu vor fi dezvăluite nici unei alte persoane", "b. informațiile primite de la pacient pot fi dezvăluite membrilor familiei acestuia", "c. informațiile primite de la pacient pot fi dezvăluite autorităților, dacă reprezintă o amenințare directă la binele societății"], answer: "c. informațiile primite de la pacient pot fi dezvăluite autorităților, dacă reprezintă o amenințare directă la binele societății" },
+
+{ question: "55. Evaluarea statusului volemic al pacientului presupune următoarele aspecte, cu excepția:", options: ["a. realizarea bilanțului hidric intrări - ieșiri", "b. monitorizarea debitului urinar", "c. aprecierea semnelor clinice de hiperhidratare"], answer: "c. aprecierea semnelor clinice de hiperhidratare" },
+
+{ question: "56. Regimul alimentar recomandat unei persoane cu constipație cronică include:", options: ["a. alimente cu conținut scăzut în fibre vegetale", "b. alimente cu conținut crescut în fibre vegetale", "c. evitarea alimentelor ce conțin fibre vegetale"], answer: "b. alimente cu conținut crescut în fibre vegetale" },
+
+{ question: "57. Paralizia jumătății inferioare a corpului se numește:", options: ["a. paraplegie", "b. hemiplegie", "c. tetraplegie"], answer: "a. paraplegie" },
+
+{ question: "58. Diagnosticul de îngrijire:", options: ["a. este sinonim cu diagnosticul medical", "b. se bazează pe rezultatul explorărilor paraclinice", "c. reprezintă baza întocmirii unui plan de îngrijire"], answer: "c. reprezintă baza întocmirii unui plan de îngrijire" },
+
+{ question: "59. Dacă în timpul oxigenoterapiei pacientul se balonează vom recomanda:", options: ["a. retragerea sondei până aproape de valul palatin", "b. schimbarea alternativă a narinelor la introducerea sondei", "c. verificarea funcționării umidificatorului"], answer: "a. retragerea sondei până aproape de valul palatin" },
+
+{ question: "60. Debitul oxigenului administrat pe sonda nazală în scop terapeutic va fi de:", options: ["a. 4 litri/min", "b. 5 litri/min", "c. 6 litri/min"], answer: "c. 6 litri/min" },
+
+{ question: "61. Administrarea medicamentelor pe cale rectală se face cu pacientul aşezat în:", options: ["a. decubit lateral stâng", "b. decubit dorsal", "c. poziție genupectorală"], answer: "a. decubit lateral stâng" },
+
+{ question: "62. După administrarea medicamentelor pe cale rectală pacientul este instruit să nu-şi modifice poziția timp de:", options: ["a. 15 minute", "b. 30 minute", "c. 60 minute"], answer: "a. 15 minute" },
+
+{ question: "63. Pentru administrarea medicamentelor în conductul auditiv extern poziția pacientului se recomandă a fi:", options: ["a. decubit dorsal", "b. decubit lateral pe partea sănătoasă", "c. semişezând, cu capul în hiperextensie"], answer: "b. decubit lateral pe partea sănătoasă" },
+
+{ question: "64. Administrarea medicamentelor pe cale nazală se face cu pacientul aşezat în poziție:", options: ["a. decubit dorsal", "b. decubit lateral stâng", "c. ortostatism cu hiperextensia capului"], answer: "a. decubit dorsal" },
+
+{ question: "65. După administrarea medicamentelor, în sacul conjunctival pot apărea următoarele reacții locale:", options: ["a. congestie oculară", "b. lacrimare, prurit", "c. ambele variante sunt corecte"], answer: "c. ambele variante sunt corecte" },
+
+{ question: "66. Pregătirea pacientei pentru spălătura vaginală include:", options: ["a. golirea vezicii urinare în prealabil", "b. aşezarea pacientei în poziție ginecologică", "c. ambele variante sunt corecte"], answer: "c. ambele variante sunt corecte" },
+
+{ question: "67. Hipoxemia reprezintă:", options: ["a. scăderea presiunii parțiale a oxigenului în sângele arterial", "b. scăderea presiunii parțiale a oxigenului în sângele venos", "c. scăderea presiunii parțiale a oxigenului în aerul atmosferic"], answer: "a. scăderea presiunii parțiale a oxigenului în sângele arterial" },
+
+{ question: "68. Volumul curent reprezintă:", options: ["a. volumul de aer ce este mobilizat în timpul unui inspir sau expir normal", "b. volumul de aer este mobilizat într-un expir forțat ce urmează unui inspir forțat", "c. volumul de aer ce rămâne în plămâni în mod curent după un expir normal"], answer: "a. volumul de aer ce este mobilizat în timpul unui inspir sau expir normal" },
+
+{ question: "69. Recoltarea sputei pentru examenul bacteriologic se face:", options: ["a. dimineața după toaleta traheobronşică", "b. dimineața înainte de toaleta traheobronşică pentru a putea identifica şi germenii de la nivelul cavității bucale", "c. seara înainte de culcare"], answer: "a. dimineața după toaleta traheobronşică" },
+
+{ question: "70. Tusea seacă iritativă este specifică:", options: ["a. infecțiilor virale ale căilor respiratorii superioare", "b. infecțiilor bacteriene ale căilor respiratorii superioare", "c. bronşitei cronice"], answer: "a. infecțiilor virale ale căilor respiratorii superioare" },
+
+{ question: "71. Dispneca apărută brusc la un pacient ce a suferit recent o intervenție chirurgicală poate sugera:", options: ["a. embolie pulmonară", "b. infarct miocardic acut", "c. acutizarea unui episod de bronşită cronică"], answer: "a. embolie pulmonară" },
+
+{ question: "72. Imobilizarea ortopedică după reducerea unei luxații durează:", options: ["a. 1-3 zile", "b. 2-3 săptămâni", "c. 3-4 luni"], answer: "b. 2-3 săptămâni" },
+
+{ question: "73. Luxația presupune:", options: ["a. deplasarea permanentă a extremităților articulare", "b. modificarea raportului între extremitățile articulare dar acestea rămân în contact", "c. nici una din variante"], answer: "a. deplasarea permanentă a extremităților articulare" },
+
+{ question: "74. Semnele clinice de certitudine pentru diagnosticul de fractură includ:", options: ["a. durerea în punct fix", "b. mobilitate anormală", "c. atitudinea vicioasă"], answer: "b. mobilitate anormală" },
+
+{ question: "75. În pregătirea unui pacient pentru gastrofibroscopie, a.m. va recomanda acestuia post alimentar:", options: ["a. cu 24h înaintea explorării endoscopice", "b. cu 8-10h înaintea explorării endoscopice", "c. cu 2-4h înaintea explorării endoscopice"], answer: "b. cu 8-10h înaintea explorării endoscopice" },
+
+{ question: "76. Nutriția enterală este contraindicată la pacienții cu:", options: ["a. ischemie miocardică", "b. ischemie intestinală", "c. ischemie cerebrală"], answer: "b. ischemie intestinală" },
+
+{ question: "77. Explorarea paraclinică a unui pacient cu abdomen acut chirurgical include:", options: ["a. tranzitul baritat", "b. computer tomograf cu substanță de contrast", "c. radiografie abdominală simplă"], answer: "c. radiografie abdominală simplă" },
+
+{ question: "78. Obiectivul imediat şi esenţial în tratamentul unei ocluzii este:", options: ["a. reechilibrare nutritivă", "b. stabilitatea hemodinamică", "c. decompresiunea abdominală"], answer: "c. decompresiunea abdominală" },
+
+{ question: "79. Invaginația intestinală:", options: ["a. constă în torsionarea ansei intestinale pe o bridă", "b. nu afectează vascularizația segmentului invaginat", "c. este mai frecventă la copil"], answer: "c. este mai frecventă la copil" },
+
+{ question: "80. Tratamentul chirurgical în ocluzia intestinală:", options: ["a. este obligatoriu", "b. este contraindicat", "c. este opțional"], answer: "a. este obligatoriu" },
+
+{ question: "81. Arsura de gradul I se caracterizează prin:", options: ["a. eritem", "b. durere", "c. flictene cu lichid hematic"], answer: "a. eritem" },
+
+{ question: "82. Jumătate din cantitatea de soluții perfuzabile necesare pentru reechilibrarea hidroelectrolitică în primele 24 de ore la un pacient cu arsuri, se va administra în:", options: ["a. primele 8 ore", "b. primele 4 ore", "c. primele 16 ore"], answer: "a. primele 8 ore" },
+
+{ question: "83. Arsurile ce afectează regiunea anterioară a trunchiului reprezintă:", options: ["a. 9% din suprafața corporală", "b. 18% din suprafața corporală", "c. 36% din suprafața corporală"], answer: "b. 18% din suprafața corporală" },
+
+{ question: "84. Asepsia:", options: ["a. este o metodă profilactică", "b. este o metodă curativă", "c. poate fi înlocuită prin administrarea profilactică de antibiotic"], answer: "a. este o metodă profilactică" },
+
+{ question: "85. Debutul schizofreniei poate fi:", options: ["a. brusc", "b. lent, insidios", "c. ambele variante sunt corecte"], answer: "c. ambele variante sunt corecte" },
+
+{ question: "86. Îngrijirea pacienților depresivi implică:", options: ["a. prevenirea tentativelor de suicid", "b. mobilizarea pasivă şi activă a pacienților în vederea prevenirii escarelor", "c. ambele variante sunt corecte"], answer: "c. ambele variante sunt corecte" },
+
+{ question: "87. Alcoolismul intră în categoria:", options: ["a. nevrozelor", "b. psihozelor toxice", "c. toxicomaniilor"], answer: "a. nevrozelor" },
+
+{ question: "88. Contuzia reprezintă:", options: ["a. o lezare a țesuturilor începând cu pielea și ajungând la profunzimi diferite", "b. leziune de continuitate la nivelul pielii", "c. leziune traumatică ce produce leziuni tisulare dar păstrează intactă pielea"], answer: "c. leziune traumatică ce produce leziuni tisulare dar păstrează intactă pielea" },
+
+{ question: "89. Tabloul clinic al Anemiei Biermer este:", options: ["a. parestezie şi hipoestezie", "b. reflexe osteotendinoase exacerbate", "c. absența semnului Romberg"], answer: "a. parestezie şi hipoestezie" },
+
+{ question: "90. Cantitatea normală de fier din organism este:", options: ["a. 3-4g", "b. 6-12 g", "c. 12-18 g"], answer: "a. 3-4g" }
 
         ];
 
@@ -655,3 +531,4 @@
 </script>
 </body>
 </html>
+
