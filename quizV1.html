@@ -50,6 +50,22 @@
         .result {
             margin: 10px 0;
         }
+        .retry-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .retry-button:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
@@ -60,6 +76,7 @@
     </div>
     <div id="score" class="score"></div>
     <div id="results" class="results"></div>
+    <button id="retry" class="retry-button" style="display: none;">Reîncercați întrebările greșite</button>
 </div>
 
 <script>
@@ -393,15 +410,19 @@ answer: "a. colecistita acută"
 { question: "90. Cantitatea normală de fier din organism este:", options: ["a. 3-4g", "b. 6-12 g", "c. 12-18 g"], answer: "a. 3-4g" }
         ];
 
+        ];
+
         let currentQuestionIndex = 0;
         let score = 0;
         let results = [];
+        let wrongAnswers = [];
 
         function showQuestion() {
             const questionElement = document.getElementById('question');
             const optionsElement = document.getElementById('options');
             const scoreElement = document.getElementById('score');
             const resultsElement = document.getElementById('results');
+            const retryButton = document.getElementById('retry');
 
             if (currentQuestionIndex < quiz.length) {
                 const currentQuestion = quiz[currentQuestionIndex];
@@ -417,6 +438,7 @@ answer: "a. colecistita acută"
                 });
                 scoreElement.textContent = '';
                 resultsElement.textContent = '';
+                retryButton.style.display = 'none';
             } else {
                 questionElement.textContent = '';
                 optionsElement.innerHTML = '';
@@ -427,35 +449,82 @@ answer: "a. colecistita acută"
 
         function checkAnswer(answer) {
             const currentQuestion = quiz[currentQuestionIndex];
-            results.push({
+            const result = {
                 question: currentQuestion.question,
                 correctAnswer: currentQuestion.answer,
                 yourAnswer: answer,
                 options: currentQuestion.options
-            });
+            };
+            results.push(result);
+
             if (answer === currentQuestion.answer) {
                 score++;
+            } else {
+                wrongAnswers.push(result);
             }
+
             currentQuestionIndex++;
             showQuestion();
         }
 
         function showResults() {
             const resultsElement = document.getElementById('results');
+            const retryButton = document.getElementById('retry');
             resultsElement.innerHTML = '<h3>Rezultate:</h3>';
-            results.forEach(result => {
-                const resultElement = document.createElement('div');
-                resultElement.classList.add('result');
-                resultElement.innerHTML = `
-                    <p>${result.question}</p>
-                    <p>Opțiuni:</p>
-                    <ul>${result.options.map(option => `<li>${option}</li>`).join('')}</ul>
-                    <p>Răspunsul tău: ${result.yourAnswer}</p>
-                    <p>Răspunsul corect: ${result.correctAnswer}</p>
-                    <hr>
-                `;
-                resultsElement.appendChild(resultElement);
-            });
+
+            if (wrongAnswers.length > 0) {
+                resultsElement.innerHTML += '<h4>Răspunsuri greșite:</h4>';
+                wrongAnswers.forEach(result => {
+                    const resultElement = document.createElement('div');
+                    resultElement.classList.add('result');
+                    resultElement.innerHTML = `
+                        <p>${result.question}</p>
+                        <p>Opțiuni:</p>
+                        <ul>${result.options.map(option => `<li>${option}</li>`).join('')}</ul>
+                        <p>Răspunsul tău: ${result.yourAnswer}</p>
+                        <p>Răspunsul corect: ${result.correctAnswer}</p>
+                        <hr>
+                    `;
+                    resultsElement.appendChild(resultElement);
+                });
+            }
+
+            const correctAnswers = results.filter(r => wrongAnswers.indexOf(r) === -1);
+            if (correctAnswers.length > 0) {
+                resultsElement.innerHTML += '<h4>Răspunsuri corecte:</h4>';
+                correctAnswers.forEach(result => {
+                    const resultElement = document.createElement('div');
+                    resultElement.classList.add('result');
+                    resultElement.innerHTML = `
+                        <p>${result.question}</p>
+                        <p>Opțiuni:</p>
+                        <ul>${result.options.map(option => `<li>${option}</li>`).join('')}</ul>
+                        <p>Răspunsul tău: ${result.yourAnswer}</p>
+                        <p>Răspunsul corect: ${result.correctAnswer}</p>
+                        <hr>
+                    `;
+                    resultsElement.appendChild(resultElement);
+                });
+            }
+
+            if (wrongAnswers.length > 0) {
+                retryButton.style.display = 'block';
+                retryButton.onclick = retryWrongAnswers;
+            }
+        }
+
+        function retryWrongAnswers() {
+            quiz.length = 0;
+            wrongAnswers.forEach(wa => quiz.push({
+                question: wa.question,
+                options: wa.options,
+                answer: wa.correctAnswer
+            }));
+            currentQuestionIndex = 0;
+            score = 0;
+            results = [];
+            wrongAnswers = [];
+            showQuestion();
         }
 
         showQuestion();
@@ -463,3 +532,4 @@ answer: "a. colecistita acută"
 </script>
 </body>
 </html>
+
