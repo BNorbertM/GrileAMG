@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asocierea literelor cu cifrele</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #4a90e2;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #4a90e2;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #357ABD;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+        .feedback {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Asociați literele cu cifrele corespunzătoare</h1>
+        
+        <!-- Exercițiul 1 -->
+        <div id="exercise1">
+            <form id="associationForm1">
+                <div class="question">
+                    <label for="a">A. Hematemeza:</label>
+                    <select id="a" name="a">
+                        <option value="1">1. eliminarea brusca pe gura a continutului stomacal</option>
+                        <option value="2">2. arsura retrosternala</option>
+                        <option value="3">3. scaun negru, lucios, ca pacura</option>
+                        <option value="4">4. Sputa cu sange</option>
+                        <option value="5">5. varsatura cu sange</option>
+                        <option value="6">6. reflexul alimentar ajunge in stomac</option>
+                    </select>
+                    <span id="feedback-a" class="feedback"></span>
+                </div>
+                <div class="question">
+                    <label for="b">B. Pirozis:</label>
+                    <select id="b" name="b">
+                        <option value="1">1. eliminarea brusca pe gura a continutului stomacal</option>
+                        <option value="2">2. arsura retrosternala</option>
+                        <option value="3">3. scaun negru, lucios, ca pacura</option>
+                        <option value="4">4. Sputa cu sange</option>
+                        <option value="5">5. varsatura cu sange</option>
+                        <option value="6">6. reflexul alimentar ajunge in stomac</option>
+                    </select>
+                    <span id="feedback-b" class="feedback"></span>
+                </div>
+                <div class="question">
+                    <label for="c">C. Melena:</label>
+                    <select id="c" name="c">
+                        <option value="1">1. eliminarea brusca pe gura a continutului stomacal</option>
+                        <option value="2">2. arsura retrosternala</option>
+                        <option value="3">3. scaun negru, lucios, ca pacura</option>
+                        <option value="4">4. Sputa cu sange</option>
+                        <option value="5">5. varsatura cu sange</option>
+                        <option value="6">6. reflexul alimentar ajunge in stomac</option>
+                    </select>
+                    <span id="feedback-c" class="feedback"></span>
+                </div>
+                <div class="question">
+                    <label for="d">D. Regurgitate:</label>
+                    <select id="d" name="d">
+                        <option value="1">1. eliminarea brusca pe gura a continutului stomacal</option>
+                        <option value="2">2. arsura retrosternala</option>
+                        <option value="3">3. scaun negru, lucios, ca pacura</option>
+                        <option value="4">4. Sputa cu sange</option>
+                        <option value="5">5. varsatura cu sange</option>
+                        <option value="6">6. reflexul alimentar ajunge in stomac</option>
+                    </select>
+                    <span id="feedback-d" class="feedback"></span>
+                </div>
+                <div class="question">
+                    <label for="e">E. Varsaturi:</label>
+                    <select id="e" name="e">
+                        <option value="1">1. eliminarea brusca pe gura a continutului stomacal</option>
+                        <option value="2">2. arsura retrosternala</option>
+                        <option value="3">3. scaun negru, lucios, ca pacura</option>
+                        <option value="4">4. Sputa cu sange</option>
+                        <option value="5">5. varsatura cu sange</option>
+                        <option value="6">6. reflexul alimentar ajunge in stomac</option>
+                    </select>
+                    <span id="feedback-e" class="feedback"></span>
+                </div>
+                <button type="button" onclick="checkAnswers1()">Verifică răspunsurile</button>
+            </form>
+            <p id="result1" class="result"></p>
+        </div>
+
+        <!-- Exercițiul 2 -->
+        <div id="exercise2" class="hidden">
+            <h1>Exercițiul 2</h1>
+            <form id="associationForm2">
+                <div class="question">
+                    <label for="a2">A. Oligoanurie:</label>
+                    <select id="a2" name="a2">
+                        <option value="1">1. cresterea frecventei mictiunilor</option>
+                        <option value="2">2. prezenta puroiului in urina</option>
+                        <option value="3">3. scaderea cantitati de urina sub 500ml</option>
+                        <option value="4">4. cresterea cantitati de urina peste 2 l/24 ore</option>
+                        <option value="5">5. prezenta sangelui in urina</option>
+                        <option value="6">6. greutate la inghitire</option>
+                    </select>
+                    <span id="feedback-a2" class="feedback"></span>
+                </div>
+                <div class="question">
+                    <label for="b2">B. Polakiurie:</label>
+                    <select id="b2" name="b2">
+                        <option value="1">1. cresterea frecventei mictiunilor</option>
+                        <option value="2">2. prezenta puroiului in urina</option>
+                        <option value="3">3. scaderea cantitati de urina sub 500ml</option>
+                        <option value="4">4. cresterea cantitati de urina peste 2 l/24 ore</option>
+                        <option value="5">5. prezenta sangelui in urina</option>
+                        <option value="6">6. greutate la inghitire</option>
+                    </select>
+                    <span id="feedback-b2" class="feedback"></span>
+                </div>
+                <div class="question">
+                    <label for="c2">C. Poliuria:</label>
+                    <select id="c2" name="c2">
+                        <option value="1">1. cresterea frecventei mictiunilor</option>
+                        <option value="2">2. prezenta puroiului in urina</option>
+                        <option value="3">3. scaderea cantitati de urina sub 500ml</option>
+                        <option value="4">4. cresterea cantitati de urina peste 2 l/24 ore</option>
+                        <option value="5">5. prezenta sangelui in urina</option>
+                        <option value="6">6. greutate la inghitire</option>
+                    </select>
+                    <span id="feedback-c2" class="feedback"></span>
+                </div>
+                <div class="question">
+                    <label for="d2">D. Puiric:</label>
+                    <select id="d2" name="d2">
+                        <option value="1">1. cresterea frecventei mictiunilor</option>
+                        <option value="2">2. prezenta puroiului in urina</option>
+                        <option value="3">3. scaderea cantitati de urina sub 500ml</option>
+                        <option value="4">4. cresterea cantitati de urina peste 2 l/24 ore</option>
+                        <option value="5">5. prezenta sangelui in urina</option>
+                        <option value="6">6. greutate la inghitire</option>
+                    </select>
+                    <span id="feedback-d2" class="feedback"></span>
+                </div>
+                <div class="question">
+                    <label for="e2">E. Hematurie:</label>
+                    <select id="e2" name="e2">
+                        <option value="1">1. cresterea frecventei mictiunilor</option>
+                        <option value="2">2. prezenta puroiului in urina</option>
+                        <option value="3">3. scaderea cantitati de urina sub 500ml</option>
+                        <option value="4">4. cresterea cantitati de urina peste 2 l/24 ore</option>
+                        <option value="5">5. prezenta sangelui in urina</option>
+                        <option value="6">6. greutate la inghitire</option>
+                    </select>
+                    <span id="feedback-e2" class="feedback"></span>
+                </div>
+                <button type="button" onclick="checkAnswers2()">Verifică răspunsurile</button>
+            </form>
+            <p id="result2" class="result"></p>
+        </div>
+
+        <!-- Exercițiul 3 -->
+        <div id="exercise3" class="hidden">
+            <h1>Exercițiul 3</h1>
+            <form id="associationForm3">
+                <div class="question">
+                    <label for="a3">A. Epistaxis:</label>
+                    <select id="a3" name="a3">
+                        <option value="1">1. hemoragie din cavitatea pleurala</option>
+                        <option value="2">2. hemoragie nazala</option>
+                        <option value="3">3. hemoragie din cavitatea pericardica</option>
+                        <option value="4">4. hemoragia gingiilor</option>
+                        <option value="5">5. hemoragie oculara</option>
+                        <option value="6">6. hemoragie in cavitatea peritoneala</option>
+                    </select>
+                    <span id="feedback-a3" class="feedback"></span>
+                </div>
+                <div class="question">
+                    <label for="b3">B. Hemotorax:</label>
+                    <select id="b3" name="b3">
+                        <option value="1">1. hemoragie din cavitatea pleurala</option>
+                        <option value="2">2. hemoragie nazala</option>
+                        <option value="3">3. hemoragie din cavitatea pericardica</option>
+                        <option value="4">4. hemoragia gingiilor</option>
+                        <option value="5">5. hemoragie oculara</option>
+                        <option value="6">6. hemoragie in cavitatea peritoneala</option>
+                    </select>
+                    <span id="feedback-b3" class="feedback"></span>
+                </div>
+                <div class="question">
+                    <label for="c3">C. Gingivoragie:</label>
+                    <select id="c3" name="c3">
+                        <option value="1">1. hemoragie din cavitatea pleurala</option>
+                        <option value="2">2. hemoragie nazala</option>
+                        <option value="3">3. hemoragie din cavitatea pericardica</option>
+                        <option value="4">4. hemoragia gingiilor</option>
+                        <option value="5">5. hemoragie oculara</option>
+                        <option value="6">6. hemoragie in cavitatea peritoneala</option>
+                    </select>
+                    <span id="feedback-c3" class="feedback"></span>
+                </div>
+                <div class="question">
+                    <label for="d3">D. Hemopericard:</label>
+                    <select id="d3" name="d3">
+                        <option value="1">1. hemoragie din cavitatea pleurala</option>
+                        <option value="2">2. hemoragie nazala</option>
+                        <option value="3">3. hemoragie din cavitatea pericardica</option>
+                        <option value="4">4. hemoragia gingiilor</option>
+                        <option value="5">5. hemoragie oculara</option>
+                        <option value="6">6. hemoragie in cavitatea peritoneala</option>
+                    </select>
+                    <span id="feedback-d3" class="feedback"></span>
+                </div>
+                <div class="question">
+                    <label for="e3">E. Hemiperitoneu:</label>
+                    <select id="e3" name="e3">
+                        <option value="1">1. hemoragie din cavitatea pleurala</option>
+                        <option value="2">2. hemoragie nazala</option>
+                        <option value="3">3. hemoragie din cavitatea pericardica</option>
+                        <option value="4">4. hemoragia gingiilor</option>
+                        <option value="5">5. hemoragie oculara</option>
+                        <option value="6">6. hemoragie in cavitatea peritoneala</option>
+                    </select>
+                    <span id="feedback-e3" class="feedback"></span>
+                </div>
+                <button type="button" onclick="checkAnswers3()">Verifică răspunsurile</button>
+            </form>
+            <p id="result3" class="result"></p>
+        </div>
+
+        <!-- Exercițiul 4 -->
+        <div id="exercise4" class="hidden">
+            <h1>Exercițiul 4</h1>
+            <form id="associationForm4">
+                <div class="question">
+                    <label for="a4">A. Poliurie:</label>
+                    <select id="a4" name="a4">
+                        <option value="1">1. ingerarea unei cantitati crescute de apa(4-5 l apa/zi sau mai mult)</option>
+                        <option value="2">2. diureza mai mare de 2000 ml in 24 ore</option>
+                        <option value="3">3. diminuarea sau lipsa poftei de mancare</option>
+                        <option value="4">4. nevoia excesiva de a manca, cu absenta sentimentului de satietate</option>
+                        <option value="5">5. cresterea frecventei mictiunilor</option>
+                        <option value="6">6. granuloame nodulare ce se datoresc precipitarii cristalelor de acid uric</option>
+                    </select>
+                    <span id="feedback-a4" class="feedback"></span>
+                </div>
+                <div class="question">
+                    <label for="b4">B. Polidipsie:</label>
+                    <select id="b4" name="b4">
+                        <option value="1">1. ingerarea unei cantitati crescute de apa(4-5 l apa/zi sau mai mult)</option>
+                        <option value="2">2. diureza mai mare de 2000 ml in 24 ore</option>
+                        <option value="3">3. diminuarea sau lipsa poftei de mancare</option>
+                        <option value="4">4. nevoia excesiva de a manca, cu absenta sentimentului de satietate</option>
+                        <option value="5">5. cresterea frecventei mictiunilor</option>
+                        <option value="6">6. granuloame nodulare ce se datoresc precipitarii cristalelor de acid uric</option>
+                    </select>
+                    <span id="feedback-b4" class="feedback"></span>
+                </div>
+                <div class="question">
+                    <label for="c4">C. Polifagie:</label>
+                    <select id="c4" name="c4">
+                        <option value="1">1. ingerarea unei cantitati crescute de apa(4-5 l apa/zi sau mai mult)</option>
+                        <option value="2">2. diureza mai mare de 2000 ml in 24 ore</option>
+                        <option value="3">3. diminuarea sau lipsa poftei de mancare</option>
+                        <option value="4">4. nevoia excesiva de a manca, cu absenta sentimentului de satietate</option>
+                        <option value="5">5. cresterea frecventei mictiunilor</option>
+                        <option value="6">6. granuloame nodulare ce se datoresc precipitarii cristalelor de acid uric</option>
+                    </select>
+                    <span id="feedback-c4" class="feedback"></span>
+                </div>
+                <div class="question">
+                    <label for="d4">D. Anorexie:</label>
+                    <select id="d4" name="d4">
+                        <option value="1">1. ingerarea unei cantitati crescute de apa(4-5 l apa/zi sau mai mult)</option>
+                        <option value="2">2. diureza mai mare de 2000 ml in 24 ore</option>
+                        <option value="3">3. diminuarea sau lipsa poftei de mancare</option>
+                        <option value="4">4. nevoia excesiva de a manca, cu absenta sentimentului de satietate</option>
+                        <option value="5">5. cresterea frecventei mictiunilor</option>
+                        <option value="6">6. granuloame nodulare ce se datoresc precipitarii cristalelor de acid uric</option>
+                    </select>
+                    <span id="feedback-d4" class="feedback"></span>
+                </div>
+                <div class="question">
+                    <label for="e4">E. Tofi:</label>
+                    <select id="e4" name="e4">
+                        <option value="1">1. ingerarea unei cantitati crescute de apa(4-5 l apa/zi sau mai mult)</option>
+                        <option value="2">2. diureza mai mare de 2000 ml in 24 ore</option>
+                        <option value="3">3. diminuarea sau lipsa poftei de mancare</option>
+                        <option value="4">4. nevoia excesiva de a manca, cu absenta sentimentului de satietate</option>
+                        <option value="5">5. cresterea frecventei mictiunilor</option>
+                        <option value="6">6. granuloame nodulare ce se datoresc precipitarii cristalelor de acid uric</option>
+                    </select>
+                    <span id="feedback-e4" class="feedback"></span>
+                </div>
+                <button type="button" onclick="checkAnswers4()">Verifică răspunsurile</button>
+            </form>
+            <p id="result4" class="result"></p>
+        </div>
+    </div>
+
+    <script>
+        const correctAnswers1 = {
+            a: '5',
+            b: '2',
+            c: '3',
+            d: '6',
+            e: '1'
+        };
+
+        const correctAnswers2 = {
+            a2: '3',
+            b2: '1',
+            c2: '4',
+            d2: '2',
+            e2: '5'
+        };
+
+        const correctAnswers3 = {
+            a3: '2',
+            b3: '1',
+            c3: '4',
+            d3: '3',
+            e3: '6'
+        };
+
+        const correctAnswers4 = {
+            a4: '2',
+            b4: '1',
+            c4: '4',
+            d4: '3',
+            e4: '6'
+        };
+
+        function checkAnswers1() {
+            let isCorrect = true;
+            for (const key in correctAnswers1) {
+                const selectedValue = document.getElementById(key).value;
+                const feedback = document.getElementById(`feedback-${key}`);
+                if (selectedValue === correctAnswers1[key]) {
+                    feedback.className = 'feedback correct';
+                    feedback.textContent = '✔';
+                } else {
+                    feedback.className = 'feedback incorrect';
+                    feedback.textContent = '✘';
+                    isCorrect = false;
+                }
+            }
+            if (isCorrect) {
+                document.getElementById('result1').textContent = 'Toate răspunsurile sunt corecte!';
+                setTimeout(() => {
+                    document.getElementById('exercise1').classList.add('hidden');
+                    document.getElementById('exercise2').classList.remove('hidden');
+                }, 1000);
+            } else {
+                document.getElementById('result1').textContent = '';
+            }
+        }
+
+        function checkAnswers2() {
+            let isCorrect = true;
+            for (const key in correctAnswers2) {
+                const selectedValue = document.getElementById(key).value;
+                const feedback = document.getElementById(`feedback-${key}`);
+                if (selectedValue === correctAnswers2[key]) {
+                    feedback.className = 'feedback correct';
+                    feedback.textContent = '✔';
+                } else {
+                    feedback.className = 'feedback incorrect';
+                    feedback.textContent = '✘';
+                    isCorrect = false;
+                }
+            }
+            if (isCorrect) {
+                document.getElementById('result2').textContent = 'Toate răspunsurile sunt corecte!';
+                setTimeout(() => {
+                    document.getElementById('exercise2').classList.add('hidden');
+                    document.getElementById('exercise3').classList.remove('hidden');
+                }, 1000);
+            } else {
+                document.getElementById('result2').textContent = '';
+            }
+        }
+
+        function checkAnswers3() {
+            let isCorrect = true;
+            for (const key in correctAnswers3) {
+                const selectedValue = document.getElementById(key).value;
+                const feedback = document.getElementById(`feedback-${key}`);
+                if (selectedValue === correctAnswers3[key]) {
+                    feedback.className = 'feedback correct';
+                    feedback.textContent = '✔';
+                } else {
+                    feedback.className = 'feedback incorrect';
+                    feedback.textContent = '✘';
+                    isCorrect = false;
+                }
+            }
+            if (isCorrect) {
+                document.getElementById('result3').textContent = 'Toate răspunsurile sunt corecte!';
+                setTimeout(() => {
+                    document.getElementById('exercise3').classList.add('hidden');
+                    document.getElementById('exercise4').classList.remove('hidden');
+                }, 1000);
+            } else {
+                document.getElementById('result3').textContent = '';
+            }
+        }
+
+        function checkAnswers4() {
+            let isCorrect = true;
+            for (const key in correctAnswers4) {
+                const selectedValue = document.getElementById(key).value;
+                const feedback = document.getElementById(`feedback-${key}`);
+                if (selectedValue === correctAnswers4[key]) {
+                    feedback.className = 'feedback correct';
+                    feedback.textContent = '✔';
+                } else {
+                    feedback.className = 'feedback incorrect';
+                    feedback.textContent = '✘';
+                    isCorrect = false;
+                }
+            }
+            if (isCorrect) {
+                document.getElementById('result4').textContent = 'Toate răspunsurile sunt corecte!';
+                setTimeout(() => {
+                    document.getElementById('result4').textContent += ' Ai finalizat toate exercițiile!';
+                }, 1000);
+            } else {
+                document.getElementById('result4').textContent = '';
+            }
+        }
+    </script>
+</body>
+</html>
