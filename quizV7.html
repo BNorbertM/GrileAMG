@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            font-size: 20px;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+        .options li {
+            margin: 10px 0;
+        }
+        .options button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .options button:hover {
+            background-color: #0056b3;
+        }
+        .score {
+            font-size: 24px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .result {
+            margin: 10px 0;
+        }
+        .retry-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .retry-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+<div class="quiz-container">
+    <div id="quiz">
+        <div id="question" class="question"></div>
+        <ul id="options" class="options"></ul>
+    </div>
+    <div id="score" class="score"></div>
+    <div id="results" class="results"></div>
+    <button id="retry" class="retry-button" style="display: none;">Reîncercați întrebările greșite</button>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const quiz = [
+{
+  "question": "1. Infecţia se defineşte astfel:",
+  "options": ["a) reacţia locală sau generală rezultată din pătrunderea şi multiplicarea agentului microbian în organism", "b) reacţia locală determinată de pătrunderea microbului în organism", "c) boala rezultată ca urmare a pătrunderii microbului în organism"],
+  "answer": "a) reacţia locală sau generală rezultată din pătrunderea şi multiplicarea agentului microbian în organism"
+},
+{
+  "question": "2. Sterilizarea ca metodă de prevenire a infecţiilor reprezintă:",
+  "options": ["a) totalitatea procedeelor prin care sunt distruse toate formele de existenţă a microorganismelor", "b) totalitatea procedeelor prin care sunt distruse toate formele de existenţă a microorganismelor, de la suprafaţa sau profunzimea unui obiect", "c) totalitatea procedeelor de distrugere a microbilor din mediul înconjurător"],
+  "answer": "b) totalitatea procedeelor prin care sunt distruse toate formele de existenţă a microorganismelor, de la suprafaţa sau profunzimea unui obiect"
+},
+{
+  "question": "3. Care din urmatorii termini poate fi definit ca absenta tuturor microbilor?",
+  "options": ["a) Steril", "b) Curat", "c) Dezinfectat"],
+  "answer": "a) Steril"
+},
+{
+  "question": "4. Dezinfecţia este operaţia:",
+  "options": ["a) de distrugere a agenţilor infecţioşi de pe tegumente, mucoase, obiecte şi din încăperi", "b) de distrugere a paraziţilor de pe obiecte", "c) de distrugere a insectelor transmiţătoare de microbe"],
+  "answer": "a) de distrugere a agenţilor infecţioşi de pe tegumente, mucoase, obiecte şi din încăperi"
+},
+{
+  "question": "5. Cât timp trebuie frecate mâinile cu soluţie antiseptică, înainte de aplicarea unei proceduri invazive (ex. cateterism)?",
+  "options": ["a) 10 sec", "b) 1 min", "c) 2 min"],
+  "answer": "c) 2 min"
+},
+{
+  "question": "6. Spălarea de decontaminare a mâinilor se face astfel:",
+  "options": ["a) spălare cu apă şi săpun", "b) spălare cu apă, săpun, fiecare cu periuţă, uscare şi aplicare de alcool 2x5 ml", "c) spălare cu apă, săpun, frecare cu periuţa, uscare"],
+  "answer": "b) spălare cu apă, săpun, fiecare cu periuţă, uscare şi aplicare de alcool 2x5 ml"
+},
+{
+  "question": "7. După decesul unui pacient, salonul se dezinfectează în felul următor:",
+  "options": ["a) ştergerea patului, pavimentului, cu soluţie de var cloros 40 g‰", "b) prin pulverizarea soluţiei de aldehidă formică în salon 10-15 g‰", "c) ştergerea obiectelor din salon cu soluţie de cloramină 40 g‰"],
+  "answer": "b) prin pulverizarea soluţiei de aldehidă formică în salon 10-15 g‰"
+},
+{
+  "question": "8. Soluţia antiseptică are următoarele proprietăţi comparativ cu soluţia dezinfectantă:",
+  "options": ["a) distruge microorganismele de pe tegumente şi mucoase, fără a le altera integritatea", "b) nu este nici o deosebire", "c) este mai concentrată decât soluţia dezinfectantă"],
+  "answer": "a) distruge microorganismele de pe tegumente şi mucoase, fără a le altera integritatea"
+},
+{
+  "question": "9. Dezinsecţia reprezintă:",
+  "options": ["a) distrugerea insectelor", "b) distrugerea insectelor care pot transmite boli infecţioase", "c) distrugerea păduchilor"],
+  "answer": "b) distrugerea insectelor care pot transmite boli infecţioase"
+},
+{
+  "question": "10. Infecţiile intraspitaliceşti se definesc astfel:",
+  "options": ["a) îmbolnăviri de natură infecţioasă contractate în spital", "b) îmbolnăviri de natură infecţioasă care se manifestă după externarea pacientului", "c) îmbolnăviri de natură infecţioasă contractate în spital şi care se manifestă în timpul internării sau după externare"],
+  "answer": "c) îmbolnăviri de natură infecţioasă contractate în spital şi care se manifestă în timpul internării sau după externare"
+},
+{
+  "question": "11. Recoltarea sângelui pentru examenele biochimice se face prin:",
+  "options": ["a) puncţie venoasă - dimineaţa, bolnavul fiind \"à jeun\"", "b) înţepare în pulpa degetului", "c) ambele"],
+  "answer": "c) ambele"
+},
+{
+  "question": "12. Pentru recoltarea exsudatului faringian avem nevoie de următoarele materiale cu excepţia:",
+  "options": ["a) eprubetă cu tampon faringian sau ansă de platină", "b) spatulă linguală", "c) seringă şi ace de unică folosinţă"],
+  "answer": "c) seringă şi ace de unică folosinţă"
+},
+{
+  "question": "13. Recoltarea urinei pentru urocultură se face:",
+  "options": ["a) înainte de administrarea antibioticelor", "b) concomitent cu administrarea antibioticelor", "c) ambele"],
+  "answer": "a) înainte de administrarea antibioticelor"
+},
+{
+  "question": "14. Prezenţa sondei în stomac este indicată de marcajul acesteia citit la arcada dentară astfel:",
+  "options": ["a) la 40-50 cm", "b) la 60 cm", "c) la 70-75 cm"],
+  "answer": "a) la 40-50 cm"
+},
+{
+  "question": "15. Pentru efectuarea clismei înalte, canula se introduce:",
+  "options": ["a) 10-20 cm", "b) 30-40 cm", "c) 5-6 cm"],
+  "answer": "b) 30-40 cm"
+},
+{
+  "question": "16. Pentru a nu produce escare ale mucoasei rectale, tubul de gaze se menţine maximum:",
+  "options": ["a) 3h", "b) 2h", "c) 4h"],
+  "answer": "b) 2h"
+},
+{
+  "question": "17. Prin injecţia subcutanată se pot introduce în organism:",
+  "options": ["a) substanţe medicamentoase izotonice lichide nedureroase", "b) substanţe medicamentoase hipertonice", "c) substanţe medicamentoase uleioase"],
+  "answer": "a) substanţe medicamentoase izotonice lichide nedureroase"
+},
+{
+  "question": "18. Accidentele injecţiei subcutanate sunt următoarele, cu excepţia:",
+  "options": ["a) durere violentă prin lezarea unei terminaţii nervoase", "b) hematom prin perforarea unui vas", "c) flebalgia"],
+  "answer": "c) flebalgia"
+},
+{
+  "question": "19. Accidentele injecţiei intravenoase sunt următoarele, cu excepţia:",
+  "options": ["a) flebalgiei, datorită injectării prea rapide a unor substanţe iritante", "b) hematomului, prin străpungerea venei", "c) paraliziei, prin lezarea nervului sciatic"],
+  "answer": "c) paraliziei, prin lezarea nervului sciatic"
+},
+{
+  "question": "20. Incidentele oxigenoterapiei sunt următoarele, cu excepţia:",
+  "options": ["a) distensiei abdominale prin pătrunderea gazului prin esofag", "b) emfizemului subcutanat prin infiltrarea gazului prin esofag", "c) emboliei gazoase"],
+  "answer": "c) emboliei gazoase"
+},
+{
+  "question": "21. Cortizonul se administrează la început:",
+  "options": ["a) în doze mari, scăzând apoi cantitatea până la doza minimă de întreţinere", "b) în doze mici, care cresc treptat, până la doza maximă", "c) aceeaşi doză, până la sfârşitul tratamentului"],
+  "answer": "a) în doze mari, scăzând apoi cantitatea până la doza minimă de întreţinere"
+},
+{
+  "question": "22. În timpul tratamentului cu cortizon, regimul alimentar va fi:",
+  "options": ["a) desodat", "b) hipersodat", "c) normosodat"],
+  "answer": "a) desodat"
+},
+{
+  "question": "23. Paracenteza abdominală reprezintă:",
+  "options": ["a) pătrunderea cu ajutorul unui trocar în cavitatea peritoneală", "b) pătrunderea cu un ac în cavitatea pleurală", "c) pătrunderea cu un ac într-un organ parenchimatos"],
+  "answer": "a) pătrunderea cu ajutorul unui trocar în cavitatea peritoneală"
+},
+{
+  "question": "24. Toracenteza reprezintă puncţia:",
+  "options": ["a) cavităţii peritoneale", "b) cavităţii pericardice", "c) cavităţii pleurale"],
+  "answer": "c) cavităţii pleurale"
+},
+{
+  "question": "25. Accidentele toracentezei sunt următoarele, cu excepţia:",
+  "options": ["a) lipotimiei şi colapsului", "b) hematemezei", "c) pneumotoraxului"],
+  "answer": "b) hematemezei"
+},
+{
+  "question": "26. Accidentele puncţiei pericardice sunt următoarele, cu excepţia:",
+  "options": ["a) pătrunderii acului în miocard", "b) şocului pericardic", "c) edemului pulmonar acut"],
+  "answer": "c) edemului pulmonar acut"
+},
+{
+  "question": "27. După puncţia articulară se recomandă:",
+  "options": ["a) mobilizarea cât mai precoce a articulaţiei puncţionate", "b) imobilizarea articulaţiei în poziţie fiziologică timp de două-trei zile", "c) nu necesită îngrijire specială"],
+  "answer": "b) imobilizarea articulaţiei în poziţie fiziologică timp de două-trei zile"
+},
+{
+  "question": "28. Accidentele puncţiei osoase sunt următoarele, cu excepţia:",
+  "options": ["a) hemoragie şi hematom", "b) perforarea lamei posterioare a sternului", "c) edem pulmonar acut"],
+  "answer": "c) edem pulmonar acut"
+},
+{
+  "question": "29. Pentru efectuarea puncţiei renale, pacientul se aşează în poziţie:",
+  "options": ["a) decubit lateral stâng", "b) decubit ventral cu o pernă tare (sac de nisip) aşezată sub abdomen", "c) decubit lateral drept"],
+  "answer": "b) decubit ventral cu o pernă tare (sac de nisip) aşezată sub abdomen"
+},
+{
+  "question": "30. După puncţia hepatică, pacientul se aşază în poziţie:",
+  "options": ["a) decubit lateral drept", "b) decubit lateral stâng", "c) decubit dorsal"],
+  "answer": "a) decubit lateral drept"
+},
+{
+  "question": "31. Pentru puncţia vezicii urinare, pacientul este aşezat în poziţie:",
+  "options": ["a) decubit lateral drept", "b) decubit lateral stâng", "c) decubit dorsal, cu o pernă tare sub bazin"],
+  "answer": "c) decubit dorsal, cu o pernă tare sub bazin"
+},
+{
+  "question": "32. Antibioticele se pot administra pe următoarele căi, cu excepţia:",
+  "options": ["a) orală", "b) parenterală intramuscular şi intravenos", "c) subcutanată"],
+  "answer": "c) subcutanată"
+},
+{
+  "question": "33. Pentru testarea sensibilităţii organismului la penicilină se folosesc diluţiile:",
+  "options": ["a) 1/10.000", "b) 1/1.000", "c) 1/100"],
+  "answer": "c) 1/100"
+},
+{
+  "question": "34. Volumul deficitar de fluid - deshidratarea - se datorează:",
+  "options": ["a) pierderilor excesive (vărsături, aspiraţie, diaforeză, diuretice)", "b) mişcării fluidului (acumulare anormală de fluid în diferite zone ale organismului (ascită, edem periferic)", "c) ambele"],
+  "answer": "c) ambele"
+},
+{
+  "question": "35. Manifestările de dependenţă în deshidratare sunt următoarele, cu excepţia:",
+  "options": ["a) piele uscată, membrane şi mucoase uscate", "b) creşterea hemoglobinei şi a hematocritului prin hemoconcentraţie", "c) creşterea tensiunii arteriale"],
+  "answer": "c) creşterea tensiunii arteriale"
+},
+{
+  "question": "36. Manifestările de dependenţă în excesul volumului de lichid sunt următoarele, cu excepţia:",
+  "options": ["a) creştere acută în greutate", "b) edem periferic, pleoape edematiate", "c) hipotensiune arterială"],
+  "answer": "c) hipotensiune arterială"
+},
+{
+  "question": "37. Prin transfuzie înţelegem:",
+  "options": ["a) administrarea sângelui direct de la donator la primitor", "b) administrarea de la donator la primitor după o fază intermediară de conservare a sângelui", "c) ambele"],
+  "answer": "c) ambele"
+},
+{
+  "question": "38. Incidentele transfuziei sunt următoarele cu excepţia:",
+  "options": ["a) ieşirea acului din venă", "b) perforarea venei", "c) embolia pulmonară cu cheaguri"],
+  "answer": "c) embolia pulmonară cu cheaguri"
+},
+{
+  "question": "39. Alimentarea artificială prin sondă gastrică se face la bolnavii:",
+  "options": ["a) inconştienţi", "b) cu stricturi esofagiene", "c) intoxicaţii cu substanţe caustice"],
+  "answer": "a) inconştienţi"
+},
+{
+  "question": "40. Hiperpirexia reprezintă:",
+  "options": ["a) temperatura corpului peste 40-41 °C", "b) temperatura corpului între 39-40°C", "c) temperatura corpului între 37-38°C"],
+  "answer": "a) temperatura corpului peste 40-41 °C"
+},
+{
+  "question": "41. Pregătirea preoperatorie constă în:",
+  "options": ["a) pregătirea generală", "b) pregătirea locală", "c) ambele"],
+  "answer": "c) ambele"
+},
+{
+  "question": "42. Pregătirea generală din preziua intervenţiei chirurgicale are ca scop realizarea următoarelor obiective, cu excepţia:",
+  "options": ["a) asigurarea repausului şi a alimentaţiei necesare", "b) asigurarea igienei corporale şi evacuarea intestinului", "c) pregătirea câmpului operator"],
+  "answer": "c) pregătirea câmpului operator"
+},
+{
+  "question": "43. Apariţia cianozei postoperator imediat indică:",
+  "options": ["a) insuficienţa respiratorie", "b) insuficienţa circulatorie", "c) ambele"],
+  "answer": "c) ambele"
+},
+{
+  "question": "44. După reluarea tranzitului intestinal, în ziua a treia bolnavul va fi alimentat cu:",
+  "options": ["a) piureuri, iaurt", "b) carne, legume, pâine", "c) alimentele preferate"],
+  "answer": "a) piureuri, iaurt"
+},
+{
+  "question": "45. După rahianestezie, pacientul se transportă în poziţie:",
+  "options": ["a) decubit lateral", "b) decubit dorsal, cu capul întors lateral", "c) Trendelenburg"],
+  "answer": "b) decubit dorsal, cu capul întors lateral"
+},
+{
+  "question": "46. Pentru cercetarea factorului reumatoid se recoltează:",
+  "options": ["a) sânge venos", "b) urină", "c) lichid sinovial"],
+  "answer": "a) sânge venos"
+},
+{
+  "question": "47. Durerile în RAA prezintă următoarele caracteristici:",
+  "options": ["a) afectează articulaţiile mici de la mâini şi picioare", "b) au caracter migrator afectând articulaţiile mari", "c) se instalează numai la mobilizare"],
+  "answer": "b) au caracter migrator afectând articulaţiile mari"
+},
+{
+  "question": "48. Pentru injecţia intraarticulară cu medicaţie antiinflamatoare unui pacient cu artroză a umărului, asistenta medicală pregăteşte materialele următoare, cu excepţia:",
+  "options": ["a) seringă, ace, soluţie medicamentoasă, soluţii dezinfectante", "b) eprubete sterile, pahar conic gradat", "c) materiale de protecţie, tampoane şi comprese sterile"],
+  "answer": "b) eprubete sterile, pahar conic gradat"
+},
+{
+  "question": "49. Bronhografia reprezintă examenul:",
+  "options": ["a) radiologic al aparatului respirator", "b) endoscopic al aparatului respirator", "c) radiologic al arborelui traheobronşic"],
+  "answer": "c) radiologic al arborelui traheobronşic"
+},
+{
+  "question": "50. Pentru examenul bacteriologic al sputei se pregătesc următoarele materiale:",
+  "options": ["a) pahar conic gradat", "b) cutie Petri sterilă", "c) tăviţă renală"],
+  "answer": "b) cutie Petri sterilă"
+},
+{
+  "question": "51. Semnele caracteristice ale hemoptiziei sunt:",
+  "options": ["a) senzaţie de gâdilitură a laringelui, căldură retrosternală, tuse iritativă cu expulzia sângelui, gust de sânge", "b) senzaţie de gâdilitură a laringelui, greaţă, vărsătură, gust de sânge, transpiraţii profuze", "c) senzaţie de greaţă, vărsături, căldură retrosternală, gust de sânge"],
+  "answer": "a) senzaţie de gâdilitură a laringelui, căldură retrosternală, tuse iritativă cu expulzia sângelui, gust de sânge"
+},
+{
+  "question": "52. Depistarea precoce a îmbolnăvirii cu TBC se face prin:",
+  "options": ["a) IDR la tuberculină", "b) IDR/Cassoni", "c) IDR-Dick"],
+  "answer": "a) IDR la tuberculină"
+},
+{
+  "question": "53. Criza de astm se caracterizează prin următoarele manifestări:",
+  "options": ["a) sputa rozață, bradipnee", "b) sputa cu aspect perlat, tahipnee", "c) dispnee expiratorie, bradipnee"],
+  "answer": "c) dispnee expiratorie, bradipnee"
+},
+{
+  "question": "54. Pentru ameliorarea respiraţiei pacientului în criza de astm bronşic i se dă poziţia:",
+  "options": ["a) semişezând cu spatele sprijinit, braţele pe lângă corp", "b) decubit lateral", "c) Trendelenburg"],
+  "answer": "a) semişezând cu spatele sprijinit, braţele pe lângă corp"
+},
+{
+  "question": "55. În pleurezia serofibrinoasă pacientul prezintă următoarele manifestări de dependenţă, cu excepţia:",
+  "options": ["a) febră, frison", "b) transpiraţii nocturne", "c) febră de tip remitent, durere toracică"],
+  "answer": "c) febră de tip remitent, durere toracică"
+},
+{
+  "question": "56. Pentru stabilirea diagnosticului, în pleurezia serofibrinoasă asistenta efectuează la recomandarea medicului următoarele examinări:",
+  "options": ["a) IDR la PPD", "b) Testul Schick", "c) IDR Cassoni"],
+  "answer": "a) IDR la PPD"
+},
+{
+  "question": "57. Palpitaţiile ca manifestări de dependenţă apar:",
+  "options": ["a) în bolile cardiace", "b) după abuz de cafea, tutun", "c) ambele"],
+  "answer": "c) ambele"
+},
+{
+  "question": "58. Sediul hematuriei macroscopice se precizează prin:",
+  "options": ["a) proba celor trei pahare", "b) proba Addis-Hamburger", "c) proba Zimniţki"],
+  "answer": "a) proba celor trei pahare"
+},
+{
+  "question": "59. Diagnosticul de certitudine în infecţiile urinare este susţinut de:",
+  "options": ["a) examenul sumar de urină", "b) urocultura", "c) valoarea ureei şi a creatininei în sânge"],
+  "answer": "b) urocultura"
+},
+{
+  "question": "60. Care din următoarele manifestări sugerează un traumatism renal în cazul unui pacient cu politraumatism:",
+  "options": ["a) durere lombară", "b) hematurie macroscopică", "c) vărsături"],
+  "answer": "b) hematurie macroscopică"
+},
+{
+  "question": "61. Ca manifestări de dependenţă în perioada iniţială în cazul adenomului de prostată întâlnim:",
+  "options": ["a) incontinenţă urinară", "b) jet urinar fără presiune, întrerupt", "c) retenţie acută de urină"],
+  "answer": "b) jet urinar fără presiune, întrerupt"
+},
+{
+  "question": "62. În litiaza urică, pacientului i se recomandă regim alimentar bogat în:",
+  "options": ["a) vegetale cu restricţie de proteine", "b) sucuri de citrice", "c) produse lactate, carne"],
+  "answer": "a) vegetale cu restricţie de proteine"
+},
+{
+  "question": "63. Limba în scarlatină:",
+  "options": ["a) saburală", "b) zmeurie", "c) geografică"],
+  "answer": "b) zmeurie"
+},
+{
+  "question": "64. Scarlatina este produsă de:",
+  "options": ["a) streptococul beta-hemolitic", "b) stafilococul auriu", "c) bacilul Löffler"],
+  "answer": "a) streptococul beta-hemolitic"
+},
+{
+  "question": "65. Testul ELISA se utilizează pentru:",
+  "options": ["a) punerea în evidenţă a anticorpilor anti-HIV", "b) detectarea antigenelor specifice", "c) identificarea gonoreei"],
+  "answer": "a) punerea în evidenţă a anticorpilor anti-HIV"
+},
+{
+  "question": "66. Manifestările de dependenţă: edeme, HTA, albuminurie, se întâlnesc în:",
+  "options": ["a) disgravidie precoce", "b) eminenţă de avort", "c) disgravidie tardivă"],
+  "answer": "c) disgravidie tardivă"
+},
+{
+  "question": "67. Leucoreea reprezintă:",
+  "options": ["a) scurgere vaginală albicioasă, gălbuie, în cantitate redusă", "b) scurgere uşor roşiatică premenstrual", "c) pierdere abundentă de sânge menstrual"],
+  "answer": "a) scurgere vaginală albicioasă, gălbuie, în cantitate redusă"
+},
+{
+  "question": "68. Intervenţiile asistentei în faza tonicoclonică a crizei epileptice sunt următoarele, în afară de:",
+  "options": ["a) se decleştează dinţii, se pune un rulou între dinţi", "b) se lărgesc hainele prin descheierea nasturilor", "c) se aşază apărători laterale la paturi pentru a preveni accidentele"],
+  "answer": "a) se decleştează dinţii, se pune un rulou între dinţi"
+},
+{
+  "question": "69. În acordarea primului ajutor unui pacient cu TC se fac următoarele manevre, în afară de:",
+  "options": ["a) ridicarea pacientului pentru a-i observa mersul", "b) observarea stării de conştienţă", "c) examinarea plăgilor craniene", "d) evidenţierea parezelor şi paraliziilor"],
+  "answer": "a) ridicarea pacientului pentru a-i observa mersul"
+},
+{
+  "question": "70. Pentru efectuarea puncţiei rahidiene unui pacient comatos i se va da poziţia:",
+  "options": ["a) decubit lateral cu membrele inferioare flectate pe abdomen", "b) şezând, susţinut de două persoane", "c) decubit lateral cu bărbia în piept şi membrele inferioare flectate pe abdomen"],
+  "answer": "c) decubit lateral cu bărbia în piept şi membrele inferioare flectate pe abdomen"
+},
+{
+  "question": "71. Starea de comă se defineşte astfel:",
+  "options": ["a) pierderea parţială sau totală a conştientei", "b) pierderea parţială sau totală a conştientei cu alterarea funcţiilor vitale", "c) pierderea parţială sau totală a conştientei, motilităţii, sensibilităţii cu conservarea celor mai importante funcţii vegetative"],
+  "answer": "c) pierderea parţială sau totală a conştientei, motilităţii, sensibilităţii cu conservarea celor mai importante funcţii vegetative"
+},
+{
+  "question": "72. Problemele pacientului cu tulburări psihice sunt următoarele, cu excepţia:",
+  "options": ["a) alterarea nutriţiei", "b) potenţial de alterare a integrităţii fizice", "c) pneumonia"],
+  "answer": "c) pneumonia"
+},
+{
+  "question": "73. Pentru recoltarea secreţiei otice, în cazul unui pacient cu otită supurată, asistenta pregăteşte:",
+  "options": ["a) seringă de 5 ml", "b) tampon montat pe port tampon", "c) ansă de platină"],
+  "answer": "b) tampon montat pe port tampon"
+},
+{
+  "question": "74. Perioada de nou-născut este cuprinsă între:",
+  "options": ["a) 0-5 zile", "b) 0-1 an", "c) 0-28 zile", "d) 0-3 luni"],
+  "answer": "c) 0-28 zile"
+},
+{
+  "question": "75. Principalul icter al nou-născutului este:",
+  "options": ["a) icterul hemolitic", "b) icterul fiziologic", "c) icterul mecanic"],
+  "answer": "b) icterul fiziologic"
+},
+{
+  "question": "76. Imediat după supt, sugarul trebuie:",
+  "options": ["a) culcat în decubit ventral", "b) ţinut în poziţie verticală cu capul sprijinit şi bătut uşor pe spate pentru favorizarea eructaţiei", "c) culcat în decubit lateral", "d) ţinut în braţe şi legănat uşor"],
+  "answer": "b) ţinut în poziţie verticală cu capul sprijinit şi bătut uşor pe spate pentru favorizarea eructaţiei"
+},
+{
+  "question": "77. Colostrul este:",
+  "options": ["a) lapte de femeie secretat în prima lună", "b) lapte de femeie secretat în primele 3-4 zile", "c) lapte de femeie secretat în primele ore după naştere"],
+  "answer": "b) lapte de femeie secretat în primele 3-4 zile"
+},
+{
+  "question": "78. Meconiul este:",
+  "options": ["a) o malformaţie congenitală", "b) scaunul nou-născutului în primele 2-3 zile", "c) scaun cu mucozităţi şi celule descuamate de culoare verde"],
+  "answer": "b) scaunul nou-născutului în primele 2-3 zile"
+},
+{
+  "question": "79. Asistenţa în stările terminale vizează următoarele obiective, cu excepţia:",
+  "options": ["a) menţinerea vârstnicului în ambianţa obişnuită", "b) instituţionalizarea pentru o mai bună supraveghere medicală", "c) înlăturarea suferinţelor fizice - controlul durerii"],
+  "answer": "b) instituţionalizarea pentru o mai bună supraveghere medicală"
+},
+{
+  "question": "80. Hemoragiile arteriale pot fi recunoscute după:",
+  "options": ["a) culoarea sângelui şi presiunea de scurgere a acestuia", "b) cantitatea de sânge pierdut", "c) starea generală a pacientului"],
+  "answer": "a) culoarea sângelui şi presiunea de scurgere a acestuia"
+},
+{
+  "question": "81. Melena reprezintă hemoragia internă exteriorizată prin:",
+  "options": ["a) scaun acoperit cu sânge roşu", "b) scaun negru lucios ca păcura", "c) prin vărsătură"],
+  "answer": "b) scaun negru lucios ca păcura"
+},
+{
+  "question": "82. Pentru masajul cardiac extern pacientul este aşezat:",
+  "options": ["a) în decubit lateral stâng", "b) în decubit dorsal pe un plan dur", "c) în poziţie Trendelenburg"],
+  "answer": "b) în decubit dorsal pe un plan dur"
+},
+{
+  "question": "83. În stopul cardiorespirator, când acţionează doi salvatori, unul face masajul cardiac, iar celălalt respiraţia artificială, în ritmul:",
+  "options": ["a) o respiraţie la 5 compresiuni sternale", "b) o respiraţie la 10 compresiuni sternale", "c) o respiraţie la 8 compresiuni sternale"],
+  "answer": "a) o respiraţie la 5 compresiuni sternale"
+},
+{
+  "question": "84. Într-o încăpere închisă, încălzită cu gaz metan, sunt găsite în stare de inconştienţă două persoane. Care este prima măsură luată?",
+  "options": ["a) examinarea victimelor", "b) deschiderea ferestrelor", "c) închiderea surselor de încălzire"],
+  "answer": "b) deschiderea ferestrelor"
+},
+{
+  "question": "85. În acordarea primului ajutor în cazul unei plăgi penetrante se aplică următoarele îngrijiri, cu excepţia:",
+  "options": ["a) se aseptizează pielea din jur", "b) se toarnă apă oxigenată în plagă pentru scoaterea corpilor străini", "c) se aplică pansament steril"],
+  "answer": "b) se toarnă apă oxigenată în plagă pentru scoaterea corpilor străini"
+},
+{
+  "question": "86. Pacientului care a ingerat sodă caustică în urmă cu 3 ore i se acordă primul ajutor care constă în:",
+  "options": ["a. spălătură gastrică cu apă acidulată", "b. provocare de vărsătură", "c. administrare de analgezice."],
+  "answer": "c. administrare de analgezice."
+},
+{
+  "question": "87. Pacientul cu hemoragie acută se transportă în poziţie:",
+  "options": ["a) şezând, cu spatele sprijinit", "b) decubit lateral", "c) Trendelenburg."],
+  "answer": "c) Trendelenburg."
+},
+{
+  "question": "88. Monitorizarea clinică reprezintă:",
+  "options": ["a) supravegherea unor constante clinice: funcţii vitale, culoare tegumentelor, durere, după un orar stabilit;", "b) recoltarea unor produse pentru examene de laborator după un orar stabilit;", "c) supravegherea mobilizării pacientului."],
+  "answer": "a) supravegherea unor constante clinice: funcţii vitale, culoare tegumentelor, durere, după un orar stabilit;"
+},
+{
+  "question": "89. Şocul reprezintă:",
+  "options": ["a) stare gravă în care se produc tulburări la nivel celular - anoxie şi acumularea produselor de catabolism;", "b) tulburarea conştientei;", "c) un dezechilibru între capacitatea vaselor şi masa de sânge circulant."],
+  "answer": "a) stare gravă în care se produc tulburări la nivel celular - anoxie şi acumularea produselor de catabolism;"
+},
+{
+  "question": "90. Manifestările de dependenţă specifice hipoglicemiei sunt următoarele, cu excepţia:",
+  "options": ["a) astenie intensă, confuzie;", "b) tulburări de comportament: pseudoebrietate, agitaţie psihică;", "c) contracţii clonice, convulsii, hipertonie;", "d) midriază."],
+  "answer": "d) midriază."
+},
+{
+  "question": "91. În toate cazurile de hipoglicemie intervenţiile autonome ale asistentei medicale sunt următoarele, cu excepţia:",
+  "options": ["a) prelevează sânge pentru determinarea glicemiei;", "b) abordează o venă periferică şi instituie perfuzie cu glucoza 10%;", "c) monitorizează pulsul, TA;", "d) administrează O2;", "e) hidratează pe cale orală cu substanţe zaharoase indiferent de starea de conştientă a pacientului."],
+  "answer": "e) hidratează pe cale orală cu substanţe zaharoase indiferent de starea de conştientă a pacientului."
+},
+{
+  "question": "92. Îngrijirea comunitară este orientată:",
+  "options": ["a) spre individ;", "b) spre familie sau un grup social;", "c) ambele."],
+  "answer": "c) ambele."
+},
+{
+  "question": "93. Îngrijirile primare de sănătate ca îngrijiri de sănătate comunitară presupun:",
+  "options": ["a) acordarea îngrijirilor de menţinere a sănătăţii de către personalul medical;", "b) asigurarea responsabilităţii indivizilor, familiei sau grupului social pentru a-şi menţine propria sănătate;", "c) ambele."],
+  "answer": "c) ambele."
+},
+{
+  "question": "94. Nivelurile de intervenţii de îngrijiri primare de sănătate sunt:",
+  "options": ["a) îngrijiri de prevenire primară şi secundară;", "b) îngrijiri terţiare;", "c) îngrijiri de prevenire primară, secundară, terţiară şi cuaternară."],
+  "answer": "c) îngrijiri de prevenire primară, secundară, terţiară şi cuaternară."
+},
+{
+  "question": "95. Pentru recâştigarea formei fizice după naştere asistenta medicală recomandă lăuzei în prima săptămână:",
+  "options": ["a) să facă exerciţii pentru întărirea musculaturii perineului şi abdomenului;", "b) să execute exerciţii de ghemuire;", "c) să execute înclinări laterale."],
+  "answer": "a) să facă exerciţii pentru întărirea musculaturii perineului şi abdomenului."
+},
+{
+  "question": "96. Munca de îngrijire a unui pacient în fazele terminale la domiciliu este munca în echipă şi cuprinde:",
+  "options": ["a) medicul şi asistenta medicală;", "b) medicul şi familia pacientului;", "c) medicul, asistenta medicală, aparţinătorii."],
+  "answer": "c) medicul, asistenta medicală, aparţinătorii."
+}
+
+
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let results = [];
+        let wrongAnswers = [];
+
+        function showQuestion() {
+            const questionElement = document.getElementById('question');
+            const optionsElement = document.getElementById('options');
+            const scoreElement = document.getElementById('score');
+            const resultsElement = document.getElementById('results');
+            const retryButton = document.getElementById('retry');
+
+            if (currentQuestionIndex < quiz.length) {
+                const currentQuestion = quiz[currentQuestionIndex];
+                questionElement.textContent = currentQuestion.question;
+                optionsElement.innerHTML = '';
+                currentQuestion.options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.textContent = option;
+                    button.onclick = () => checkAnswer(option);
+                    const li = document.createElement('li');
+                    li.appendChild(button);
+                    optionsElement.appendChild(li);
+                });
+                scoreElement.textContent = '';
+                resultsElement.textContent = '';
+                retryButton.style.display = 'none';
+            } else {
+                questionElement.textContent = '';
+                optionsElement.innerHTML = '';
+                scoreElement.textContent = `Scorul tău final este: ${score}/${quiz.length}`;
+                showResults();
+            }
+        }
+
+        function checkAnswer(answer) {
+            const currentQuestion = quiz[currentQuestionIndex];
+            const result = {
+                question: currentQuestion.question,
+                correctAnswer: currentQuestion.answer,
+                yourAnswer: answer,
+                options: currentQuestion.options
+            };
+            results.push(result);
+
+            if (answer === currentQuestion.answer) {
+                score++;
+            } else {
+                wrongAnswers.push(result);
+            }
+
+            currentQuestionIndex++;
+            showQuestion();
+        }
+
+        function showResults() {
+            const resultsElement = document.getElementById('results');
+            const retryButton = document.getElementById('retry');
+            resultsElement.innerHTML = '<h3>Rezultate:</h3>';
+
+            if (wrongAnswers.length > 0) {
+                resultsElement.innerHTML += '<h4>Răspunsuri greșite:</h4>';
+                wrongAnswers.forEach(result => {
+                    const resultElement = document.createElement('div');
+                    resultElement.classList.add('result');
+                    resultElement.innerHTML = `
+                        <p>${result.question}</p>
+                        <p>Opțiuni:</p>
+                        <ul>${result.options.map(option => `<li>${option}</li>`).join('')}</ul>
+                        <p>Răspunsul tău: ${result.yourAnswer}</p>
+                        <p>Răspunsul corect: ${result.correctAnswer}</p>
+                        <hr>
+                    `;
+                    resultsElement.appendChild(resultElement);
+                });
+            }
+
+            const correctAnswers = results.filter(r => wrongAnswers.indexOf(r) === -1);
+            if (correctAnswers.length > 0) {
+                resultsElement.innerHTML += '<h4>Răspunsuri corecte:</h4>';
+                correctAnswers.forEach(result => {
+                    const resultElement = document.createElement('div');
+                    resultElement.classList.add('result');
+                    resultElement.innerHTML = `
+                        <p>${result.question}</p>
+                        <p>Opțiuni:</p>
+                        <ul>${result.options.map(option => `<li>${option}</li>`).join('')}</ul>
+                        <p>Răspunsul tău: ${result.yourAnswer}</p>
+                        <p>Răspunsul corect: ${result.correctAnswer}</p>
+                        <hr>
+                    `;
+                    resultsElement.appendChild(resultElement);
+                });
+            }
+
+            if (wrongAnswers.length > 0) {
+                retryButton.style.display = 'block';
+                retryButton.onclick = retryWrongAnswers;
+            }
+        }
+
+        function retryWrongAnswers() {
+            quiz.length = 0;
+            wrongAnswers.forEach(wa => quiz.push({
+                question: wa.question,
+                options: wa.options,
+                answer: wa.correctAnswer
+            }));
+            currentQuestionIndex = 0;
+            score = 0;
+            results = [];
+            wrongAnswers = [];
+            showQuestion();
+        }
+
+        showQuestion();
+    });
+</script>
+</body>
+</html>
