@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memorizează Medicamente</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .question {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .next-button {
+            background-color: #007bff;
+            margin-top: 10px;
+            display: none;
+            width: 100%;
+        }
+
+        .next-button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .incorrect {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Memorizează Medicamente</h1>
+    <div id="game">
+        <p class="question" id="question">La ce grupă farmaceutică aparține Bisotens?</p>
+
+        <!-- Dropdown for Pharmaceutical Group -->
+        <select id="group">
+            <option value="">Selectează grupa</option>
+            <option value="Beta-blocante">Beta-blocante</option>
+            <option value="Antiagregante plachetare">Antiagregante plachetare</option>
+            <option value="Antitrombotice">Antitrombotice</option>
+            <option value="Statine">Statine</option>
+            <option value="Anticoagulante">Anticoagulante</option>
+            <option value="Protector gastric">Protector gastric</option>
+            <option value="Probiotic">Probiotic</option>
+            <option value="Hepatoprotectoare">Hepatoprotectoare</option>
+            <option value="Antidiabetice">Antidiabetice</option>
+        </select>
+
+        <!-- Dropdown for Active Substance -->
+        <select id="substance">
+            <option value="">Selectează substanța activă</option>
+        </select>
+
+        <!-- Dropdown for Medication Effect -->
+        <select id="effect">
+            <option value="">Selectează efectul</option>
+            <option value="reduce pulsul si TA">reduce pulsul si TA</option>
+            <option value="previne formarea trombilor">previne formarea trombilor</option>
+            <option value="dizolva trombi in vasele de sange">dizolva trombi in vasele de sange</option>
+            <option value="reduce colesterolul LDL in sange">reduce colesterolul LDL in sange</option>
+            <option value="refacerea florei intestinale">refacerea florei intestinale</option>
+            <option value="protecția ficatului">protecția ficatului</option>
+            <option value="controlul glicemiei">controlul glicemiei</option>
+            <option value="reduce aciditatea gastrică">reduce aciditatea gastrică</option>
+        </select>
+
+        <button onclick="checkAnswer()">Verifică</button>
+        <div class="result" id="result"></div>
+        <button class="next-button" id="nextBtn" onclick="nextQuestion()">Următoarea Întrebare</button>
+    </div>
+</div>
+
+<script>
+    // Medicamente și informații asociate
+    const medications = [
+        // Beta-blocante
+        {
+            name: "Bisotens",
+            group: "Beta-blocante",
+            substance: "Bisoprolol",
+            effect: "reduce pulsul si TA"
+        },
+        {
+            name: "Concor",
+            group: "Beta-blocante",
+            substance: "Bisoprolol",
+            effect: "reduce pulsul si TA"
+        },
+        {
+            name: "Nebilet",
+            group: "Beta-blocante",
+            substance: "Nebivolol",
+            effect: "reduce pulsul si TA"
+        },
+        {
+            name: "Coryol",
+            group: "Beta-blocante",
+            substance: "Carvedilol",
+            effect: "reduce pulsul si TA"
+        },
+        {
+            name: "Egilok",
+            group: "Beta-blocante",
+            substance: "Metoprolol",
+            effect: "scade puls intr-un timp mai scurt"
+        },
+        {
+            name: "Betaloc",
+            group: "Beta-blocante",
+            substance: "Metoprolol",
+            effect: "scade pulsul in 4-6h"
+        },
+        {
+            name: "Granisetron",
+            group: "Beta-blocante",
+            effect: "scade pulsul rapid"
+        },
+
+        // Antiagregante plachetare
+        {
+            name: "Plavix",
+            group: "Antiagregante plachetare",
+            substance: "Clopidogrelul",
+            effect: "previne formarea trombilor"
+        },
+        {
+            name: "Aspirina",
+            group: "Antiagregante plachetare",
+            substance: "Acid acetilsalicilic",
+            effect: "previne formarea trombilor"
+        },
+        {
+            name: "Aspirin Cardio",
+            group: "Antiagregante plachetare",
+            substance: "Acid acetilsalicilic",
+            effect: "previne formarea trombilor"
+        },
+        {
+            name: "Aspenter",
+            group: "Antiagregante plachetare",
+            substance: "Acid acetilsalicilic",
+            effect: "previne formarea trombilor"
+        },
+        {
+            name: "Brilique",
+            group: "Antiagregante plachetare",
+            substance: "Ticagrelor",
+            effect: "previne formarea trombilor"
+        },
+
+        // Antitrombotice
+        {
+            name: "Actilyse",
+            group: "Antitrombotice",
+            substance: "Alteplaza",
+            effect: "dizolva trombi in vasele de sange"
+        },
+
+        // Statine
+        {
+            name: "Atoris",
+            group: "Statine",
+            substance: "Atorvastatina",
+            effect: "reduce colesterolul LDL in sange"
+        },
+        {
+            name: "Sortis",
+            group: "Statine",
+            substance: "Atorvastatina",
+            effect: "reduce colesterolul LDL in sange"
+        },
+        {
+            name: "Crestor",
+            group: "Statine",
+            substance: "Rosuvastatina",
+            effect: "reduce colesterolul LDL in sange"
+        },
+        {
+            name: "Lipocomb",
+            group: "Statine",
+            substance: "Rosuvastatina",
+            effect: "reduce colesterolul LDL in sange"
+        },
+        {
+            name: "Simvacard",
+            group: "Statine",
+            substance: "Simvastatina",
+            effect: "reduce colesterolul LDL in sange"
+        },
+
+        // Anticoagulante
+        {
+            name: "Sintrom",
+            group: "Anticoagulante",
+            substance: "Acenocumarol",
+            effect: "previne formarea trombilor"
+        },
+        {
+            name: "Trombostop",
+            group: "Anticoagulante",
+            substance: "Acenocumarol",
+            effect: "previne formarea trombilor"
+        },
+        {
+            name: "Fraxiparina",
+            group: "Anticoagulante",
+            substance: "Nadroparina calcica",
+            effect: "previne formarea trombilor"
+        },
+        {
+            name: "Clexane",
+            group: "Anticoagulante",
+            substance: "Enoxaparina sodica",
+            effect: "previne formarea trombilor"
+        },
+        {
+            name: "Pradaxa",
+            group: "Anticoagulante",
+            substance: "Dabigatran",
+            effect: "previne formarea trombilor"
+        },
+        {
+            name: "Eliquis",
+            group: "Anticoagulante",
+            substance: "Apixaban",
+            effect: "previne formarea trombilor"
+        },
+        {
+            name: "Xarelto",
+            group: "Anticoagulante",
+            substance: "Rivaroxaban",
+            effect: "previne formarea trombilor"
+        },
+
+        // Protector gastric
+        {
+            name: "Controloc",
+            group: "Protector gastric",
+            substance: "Pantoprazolul",
+            effect: "reduce aciditatea gastrică"
+        },
+        {
+            name: "Omeran",
+            group: "Protector gastric",
+            substance: "Omeprazol",
+            effect: "reduce aciditatea gastrică"
+        },
+        {
+            name: "Omez",
+            group: "Protector gastric",
+            substance: "Omeprazol",
+            effect: "reduce aciditatea gastrică"
+        },
+
+        // Probiotic
+        {
+            name: "Lacium",
+            group: "Probiotic",
+            effect: "refacerea florei intestinale"
+        },
+        {
+            name: "Linex",
+            group: "Probiotic",
+            effect: "refacerea florei intestinale"
+        },
+        {
+            name: "Eu-Biotic",
+            group: "Probiotic",
+            effect: "refacerea florei intestinale"
+        },
+
+        // Hepatoprotectoare
+        {
+            name: "Lagosa",
+            group: "Hepatoprotectoare",
+            substance: "Silimarina",
+            effect: "protecția ficatului"
+        },
+        {
+            name: "Essentiale",
+            group: "Hepatoprotectoare",
+            effect: "protecția ficatului"
+        },
+        {
+            name: "Hepatoprotect",
+            group: "Hepatoprotectoare",
+            effect: "protecția ficatului"
+        },
+
+        // Antidiabetice
+        {
+            name: "Forxiga",
+            group: "Antidiabetice",
+            substance: "Dapagliflozin",
+            effect: "controlul glicemiei"
+        },
+        {
+            name: "Siofor",
+            group: "Antidiabetice",
+            effect: "controlul glicemiei"
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+    let shuffledMedications = shuffleArray([...medications]);
+
+    // Function to shuffle the array of medications
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    // Load the current question
+    function loadQuestion() {
+        const currentMedication = shuffledMedications[currentQuestionIndex];
+        document.getElementById('question').textContent = `La ce grupă farmaceutică aparține ${currentMedication.name}?`;
+        
+        // Reset the dropdowns
+        document.getElementById('group').selectedIndex = 0;
+        document.getElementById('substance').innerHTML = '<option value="">Selectează substanța activă</option>';
+        document.getElementById('effect').selectedIndex = 0;
+        document.getElementById('result').textContent = '';
+        document.getElementById('nextBtn').style.display = 'none'; // Hide next button initially
+
+        // Populate the active substance dropdown
+        populateSubstanceDropdown(currentMedication);
+    }
+
+    // Populate the active substance dropdown
+    function populateSubstanceDropdown(currentMedication) {
+        const substanceDropdown = document.getElementById('substance');
+        const correctSubstance = currentMedication.substance;
+        const sameGroupSubstances = medications.filter(med => med.group === currentMedication.group).map(med => med.substance).filter(Boolean);
+        const allSubstances = medications.map(med => med.substance).filter(Boolean);
+
+        // Get unique options
+        const uniqueSubstances = [...new Set([...sameGroupSubstances, correctSubstance])];
+
+        // Fill the dropdown with the correct substance and others
+        uniqueSubstances.forEach(substance => {
+            if (substance) {
+                substanceDropdown.innerHTML += `<option value="${substance}">${substance}</option>`;
+            }
+        });
+
+        // If we have fewer than 6 options, add other substances
+        if (uniqueSubstances.length < 6) {
+            const additionalSubstances = allSubstances.filter(sub => !uniqueSubstances.includes(sub));
+            additionalSubstances.slice(0, 6 - uniqueSubstances.length).forEach(substance => {
+                substanceDropdown.innerHTML += `<option value="${substance}">${substance}</option>`;
+            });
+        }
+
+        // Randomize the order of options (excluding the first option)
+        const options = Array.from(substanceDropdown.options).slice(1);
+        for (let i = options.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            substanceDropdown.appendChild(options[j]);
+        }
+    }
+
+    // Check the user's answer
+    function checkAnswer() {
+        const currentMedication = shuffledMedications[currentQuestionIndex];
+        const group = document.getElementById('group').value;
+        const substance = document.getElementById('substance').value;
+        const effect = document.getElementById('effect').value;
+
+        const isSubstanceCorrect = !currentMedication.substance || substance === currentMedication.substance;
+        const isGroupCorrect = group === currentMedication.group;
+        const isEffectCorrect = effect === currentMedication.effect;
+
+        if (isGroupCorrect && isSubstanceCorrect && isEffectCorrect) {
+            document.getElementById('result').textContent = 'Corect!';
+            document.getElementById('result').className = 'result correct';
+            document.getElementById('nextBtn').style.display = 'block'; // Show "Next Question" button after correct answer
+        } else {
+            document.getElementById('result').textContent = 'Incorect! Încearcă din nou.';
+            document.getElementById('result').className = 'result incorrect';
+        }
+    }
+
+    // Move to the next question
+    function nextQuestion() {
+        currentQuestionIndex = (currentQuestionIndex + 1) % shuffledMedications.length; // Loop back to the first question if all are done
+        loadQuestion();
+    }
+
+    window.onload = loadQuestion;
+</script>
+
+</body>
+</html>
