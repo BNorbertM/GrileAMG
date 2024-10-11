@@ -6,36 +6,87 @@
     <title>Memorize Medications</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 20px;
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
+
         .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 40px;
             max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
-        select, button {
-            margin: 10px 0;
-            padding: 10px;
             width: 100%;
-            font-size: 16px;
         }
+
+        h1 {
+            color: #4A90E2;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: #f5f5f5;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        select:focus, button:focus {
+            border-color: #4A90E2;
+        }
+
+        button {
+            background-color: #4A90E2;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #357ABD;
+        }
+
         .feedback {
             font-size: 14px;
             font-weight: bold;
+            margin-top: 5px;
             margin-bottom: 5px;
         }
+
         .correct {
-            color: green;
+            color: #4CAF50;
         }
+
         .incorrect {
-            color: red;
+            color: #F44336;
         }
+
+        label {
+            font-weight: 500;
+            color: #666;
+        }
+
         #verifyBtn {
             margin-top: 20px;
+        }
+
+        #groupFeedback, #substanceFeedback, #effectFeedback {
+            display: block;
+            text-align: left;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -44,7 +95,7 @@
 <div class="container">
     <h1>Memorize Medications</h1>
     <p id="question">La ce grupă farmaceutică aparține ...?</p>
-    
+
     <div>
         <label for="group">Grupă farmaceutică: <span id="groupFeedback" class="feedback"></span></label>
         <select id="group">
@@ -95,12 +146,19 @@
         { name: "Coryol", group: "Beta blocante", substance: "Carvedilol", effect: "reduce pulsul si TA" },
         { name: "Egilok", group: "Beta blocante", substance: "Metoprolol", effect: "reduce pulsul intr-un tp mai scurt" },
         { name: "Betaloc", group: "Beta blocante", substance: "Metoprolol", effect: "reduce pulsul in 4-6h" },
-        // Add more medications based on your request...
+        { name: "Plavix", group: "Antiagregante plachetare", substance: "Clopidogrelul", effect: "previn formarea trombilor" },
+        { name: "Aspirina", group: "Antiagregante plachetare", substance: "Acid acetilsalicilic", effect: "previn formarea trombilor" },
+        { name: "Brilique", group: "Antiagregante plachetare", substance: "Ticagrelor", effect: "previn formarea trombilor" },
+        { name: "Atoris", group: "Statine", substance: "Atorvastatina", effect: "reduce colesterolul LDL in sange" },
+        { name: "Crestor", group: "Statine", substance: "Rosuvastatina", effect: "reduce colesterolul LDL in sange" },
+        { name: "Simvacard", group: "Statine", substance: "Simvastatina", effect: "reduce colesterolul LDL in sange" },
+        // Add the remaining medications here...
     ];
 
     let currentQuestionIndex = 0;
     let clickCount = 0;
     let shuffledMedications = shuffleArray([...medications]);
+    let userChangedAnswer = false;
 
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -112,7 +170,8 @@
 
     function loadQuestion() {
         clickCount = 0;
-        document.getElementById('verifyBtn').textContent = 'Verifică'; // Reset button text
+        document.getElementById('verifyBtn').textContent = 'Verifică';
+        userChangedAnswer = false;
 
         const currentMedication = shuffledMedications[currentQuestionIndex];
         document.getElementById('question').textContent = `La ce grupă farmaceutică aparține ${currentMedication.name}?`;
@@ -142,45 +201,42 @@
         });
 
         if (uniqueSubstances.length < 6) {
-            const additionalSubstances = allSubstances.filter(sub => !uniqueSubstances.includes(sub));
-            additionalSubstances.slice(0, 6 - uniqueSubstances.length).forEach(substance => {
-                substanceDropdown.innerHTML += `<option value="${substance}">${substance}</option>`;
+            allSubstances.forEach(substance => {
+                if (!uniqueSubstances.includes(substance)) {
+                    substanceDropdown.innerHTML += `<option value="${substance}">${substance}</option>`;
+                }
             });
-        }
-
-        const options = Array.from(substanceDropdown.options).slice(1);
-        for (let i = options.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            substanceDropdown.appendChild(options[j]);
         }
     }
 
     function verifyAnswers() {
-        clickCount++;
-
         const currentMedication = shuffledMedications[currentQuestionIndex];
-        const group = document.getElementById('group').value;
-        const substance = document.getElementById('substance').value;
-        const effect = document.getElementById('effect').value;
+        const selectedGroup = document.getElementById('group').value;
+        const selectedSubstance = document.getElementById('substance').value;
+        const selectedEffect = document.getElementById('effect').value;
 
-        if (clickCount === 1) {
-            const isGroupCorrect = group === currentMedication.group;
-            const isSubstanceCorrect = !currentMedication.substance || substance === currentMedication.substance;
-            const isEffectCorrect = effect === currentMedication.effect;
+        const isGroupCorrect = selectedGroup === currentMedication.group;
+        const isSubstanceCorrect = selectedSubstance === currentMedication.substance;
+        const isEffectCorrect = selectedEffect === currentMedication.effect;
 
-            document.getElementById('groupFeedback').textContent = isGroupCorrect ? 'Corect!' : 'Incorect';
-            document.getElementById('groupFeedback').className = isGroupCorrect ? 'feedback correct' : 'feedback incorrect';
+        if (clickCount === 0) {
+            document.getElementById('groupFeedback').textContent = isGroupCorrect ? 'Corect!' : 'Incorect!';
+            document.getElementById('groupFeedback').className = 'feedback ' + (isGroupCorrect ? 'correct' : 'incorrect');
 
-            document.getElementById('substanceFeedback').textContent = isSubstanceCorrect ? 'Corect!' : 'Incorect';
-            document.getElementById('substanceFeedback').className = isSubstanceCorrect ? 'feedback correct' : 'feedback incorrect';
+            document.getElementById('substanceFeedback').textContent = isSubstanceCorrect ? 'Corect!' : 'Incorect!';
+            document.getElementById('substanceFeedback').className = 'feedback ' + (isSubstanceCorrect ? 'correct' : 'incorrect');
 
-            document.getElementById('effectFeedback').textContent = isEffectCorrect ? 'Corect!' : 'Incorect';
-            document.getElementById('effectFeedback').className = isEffectCorrect ? 'feedback correct' : 'feedback incorrect';
+            document.getElementById('effectFeedback').textContent = isEffectCorrect ? 'Corect!' : 'Incorect!';
+            document.getElementById('effectFeedback').className = 'feedback ' + (isEffectCorrect ? 'correct' : 'incorrect');
 
-            document.getElementById('verifyBtn').textContent = 'Afișează răspunsurile corecte';
-
-        } else if (clickCount === 2) {
-            document.getElementById('groupFeedback').textContent = `Grup corect: ${currentMedication.group}`;
+            if (isGroupCorrect && isSubstanceCorrect && isEffectCorrect) {
+                document.getElementById('verifyBtn').textContent = 'Următoarea întrebare';
+                clickCount = 2; // Directly skip to "next question" stage
+            } else {
+                document.getElementById('verifyBtn').textContent = 'Afișează răspunsurile corecte';
+            }
+        } else if (clickCount === 1) {
+            document.getElementById('groupFeedback').textContent = `Grupă corectă: ${currentMedication.group}`;
             document.getElementById('groupFeedback').className = 'feedback correct';
 
             document.getElementById('substanceFeedback').textContent = `Substanță corectă: ${currentMedication.substance}`;
@@ -190,19 +246,34 @@
             document.getElementById('effectFeedback').className = 'feedback correct';
 
             document.getElementById('verifyBtn').textContent = 'Următoarea întrebare';
-
-        } else if (clickCount === 3) {
+        } else if (clickCount === 2) {
             nextQuestion(); // Move to the next question after revealing the answers
         }
+
+        clickCount++;
     }
 
     function nextQuestion() {
         currentQuestionIndex++;
         if (currentQuestionIndex >= shuffledMedications.length) {
             currentQuestionIndex = 0; // Restart from the first question if we reach the end
+            shuffledMedications = shuffleArray([...medications]); // Reshuffle for a new random order
         }
         loadQuestion();
     }
+
+    function resetToVerify() {
+        if (clickCount > 0 && userChangedAnswer === false) {
+            document.getElementById('verifyBtn').textContent = 'Verifică';
+            clickCount = 0; // Reset the click count if user changes the answer
+            userChangedAnswer = true; // Track that the user made changes
+        }
+    }
+
+    // Event listeners to detect changes and reset button to "Verify"
+    document.getElementById('group').addEventListener('change', resetToVerify);
+    document.getElementById('substance').addEventListener('change', resetToVerify);
+    document.getElementById('effect').addEventListener('change', resetToVerify);
 
     // Initialize the first question
     loadQuestion();
